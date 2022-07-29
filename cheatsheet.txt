@@ -1,0 +1,10 @@
+Go To Definition | gd
+Go To Declaration | gD
+Hover | K
+Go To Implementation | gi
+Show Code Actions | <leader>ca
+Rename | <leader>rn
+Go To References | gr
+Format Code | <C-i>, <C-I>
+Escape From Terminal (Go to Normal Mode) | <C-esc>
+Go To Next/Previous Problem | <A-n> / <A-N>
