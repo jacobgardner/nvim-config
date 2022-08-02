@@ -64,6 +64,11 @@ vim.keymap.set("n", "<leader>pk", function()
 	require("telescope.builtin").keymaps({})
 end, { desc = "Find normal mode keymap" })
 
+vim.keymap.set("n", "<leader>pt", function()
+	vim.cmd([[packadd telescope.nvim]])
+	require("telescope.builtin").lsp_dynamic_workspace_symbols({})
+end, { desc = "Find LSP workspace symbol" })
+
 -- Spectre
 
 vim.keymap.set({ "n", "v" }, "<leader>ps", function()
