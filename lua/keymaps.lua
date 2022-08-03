@@ -1,6 +1,6 @@
 local fs = require("util.font-size")
 
-vim.keymap.set({ "n", "i" }, "<C-i>", vim.lsp.buf.formatting, {})
+vim.keymap.set({ "n", "i" }, "<C-f>", vim.lsp.buf.formatting, {})
 vim.keymap.set("n", "<C-n>", "<cmd>Neotree toggle position=right<CR>", {})
 vim.keymap.set("n", "<leader>tp", "<cmd>TroubleToggle<CR>", { desc = "Toggle Problems Panel" })
 vim.keymap.set("n", "<leader>rl", function()
@@ -72,15 +72,15 @@ end, { desc = "Find LSP workspace symbol" })
 vim.keymap.set("n", "<leader>ph", function()
 	vim.cmd([[packadd telescope.nvim]])
 	require("telescope.builtin").lsp_references({
-    initial_mode = 'normal'
-  })
+		initial_mode = "normal",
+	})
 end, { desc = "Find LSP References to selected symbol" })
 
 vim.keymap.set("n", "<leader>pi", function()
 	vim.cmd([[packadd telescope.nvim]])
 	require("telescope.builtin").lsp_implementations({
-    initial_mode = 'normal'
-  })
+		initial_mode = "normal",
+	})
 end, { desc = "Find LSP implementations for the selected symbol" })
 
 -- Spectre
@@ -145,7 +145,7 @@ vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true })
 vim.keymap.set("n", "gs", "<Cmd>Lspsaga signature_help<CR>", { silent = true, noremap = true })
 vim.keymap.set("n", "gr", "<cmd>Lspsaga rename<CR>", { silent = true, noremap = true })
 -- vim.keymap.set("n", "gd", "<cmd>Lspsaga preview_definition<CR>", { silent = true })
-vim.keymap.set("n", "gd", function ( )
+vim.keymap.set("n", "gd", function()
 	vim.cmd([[packadd telescope.nvim]])
 	require("telescope.builtin").lsp_definitions({})
 end, { silent = true })

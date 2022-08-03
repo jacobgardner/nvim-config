@@ -71,14 +71,15 @@ cmp.setup.cmdline(":", {
 	}),
 })
 
-local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
-
 local languages = {
-  -- Rust tools does this for us, see rust-tools.lua
+	-- Rust tools does this for us, see rust-tools.lua
 	-- rust_analyzer = {},
 	eslint = {},
 	tsserver = {},
 	sumneko_lua = {
+		capabilities = {
+			document_formatting = false,
+		},
 		settings = {
 			Lua = {
 				diagnostics = {
@@ -89,15 +90,14 @@ local languages = {
 	},
 }
 
-local lsp_keybinds = require('util.lsp_keybinds');
+local lsp_keybinds = require("util.lsp_keybinds")
 
 for key, value in pairs(languages) do
+	local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 	lspconfig[key].setup({
-		on_attach = lsp_keybinds.on_attach,
+		on_attach = lsp_keybinds.on_attach(value),
 		capabilities = capabilities,
 		settings = value.settings,
 	})
 end
-
-

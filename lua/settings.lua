@@ -2,8 +2,7 @@ local opt = vim.opt
 
 -- Used by util.font-size
 vim.g.default_font_size = 12
-vim.g.default_gui_font = 'FiraCode Nerd Font'
-
+vim.g.default_gui_font = "FiraCode Nerd Font"
 
 vim.g.mapleader = " "
 vim.g.completeopt = "menu,menuone"
