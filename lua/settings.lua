@@ -37,3 +37,6 @@ opt.scrolloff = 4
 opt.sidescrolloff = 10
 
 vim.g.neo_tree_remove_legacy_commands = 1
+
+opt.ignorecase = true
+opt.smartcase = true

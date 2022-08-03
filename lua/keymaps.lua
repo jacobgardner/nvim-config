@@ -69,6 +69,20 @@ vim.keymap.set("n", "<leader>pt", function()
 	require("telescope.builtin").lsp_dynamic_workspace_symbols({})
 end, { desc = "Find LSP workspace symbol" })
 
+vim.keymap.set("n", "<leader>ph", function()
+	vim.cmd([[packadd telescope.nvim]])
+	require("telescope.builtin").lsp_references({
+    initial_mode = 'normal'
+  })
+end, { desc = "Find LSP References to selected symbol" })
+
+vim.keymap.set("n", "<leader>pi", function()
+	vim.cmd([[packadd telescope.nvim]])
+	require("telescope.builtin").lsp_implementations({
+    initial_mode = 'normal'
+  })
+end, { desc = "Find LSP implementations for the selected symbol" })
+
 -- Spectre
 
 vim.keymap.set({ "n", "v" }, "<leader>ps", function()
@@ -130,7 +144,11 @@ vim.keymap.set("n", "gh", "<CMD>Lspsaga lsp_finder<CR>", { silent = true, norema
 vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true })
 vim.keymap.set("n", "gs", "<Cmd>Lspsaga signature_help<CR>", { silent = true, noremap = true })
 vim.keymap.set("n", "gr", "<cmd>Lspsaga rename<CR>", { silent = true, noremap = true })
-vim.keymap.set("n", "gd", "<cmd>Lspsaga preview_definition<CR>", { silent = true })
+-- vim.keymap.set("n", "gd", "<cmd>Lspsaga preview_definition<CR>", { silent = true })
+vim.keymap.set("n", "gd", function ( )
+	vim.cmd([[packadd telescope.nvim]])
+	require("telescope.builtin").lsp_definitions({})
+end, { silent = true })
 vim.keymap.set("n", "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true, noremap = true })
 
 vim.keymap.set("n", "<A-n>", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = true, noremap = true })
