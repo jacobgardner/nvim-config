@@ -75,7 +75,11 @@ local languages = {
 	-- Rust tools does this for us, see rust-tools.lua
 	-- rust_analyzer = {},
 	eslint = {},
-	tsserver = {},
+	tsserver = {
+    capabilities = {
+      document_formatting = false
+    }
+  },
 	sumneko_lua = {
 		capabilities = {
 			document_formatting = false,

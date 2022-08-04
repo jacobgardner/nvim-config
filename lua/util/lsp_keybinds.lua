@@ -8,9 +8,11 @@ M.on_attach = function(settings)
 		-- Enable completion triggered by <c-x><c-o>
 		vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
-		for key, value in pairs(settings.capabilities) do
-			client.resolved_capabilities[key] = value
-		end
+    if settings.capabilities ~= nil then
+      for key, value in pairs(settings.capabilities) do
+        client.resolved_capabilities[key] = value
+      end
+    end
 
 		-- Mappings.
 		-- See `:help vim.lsp.*` for documentation on any of the below functions
