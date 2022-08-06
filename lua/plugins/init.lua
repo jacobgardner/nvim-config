@@ -1,8 +1,6 @@
 local bootstrap = require("plugins.bootstrap")
 
-local shit = function(unused) 
-
-end
+local shit = function(unused) end
 
 bootstrap(function(use)
 	-- use({
@@ -32,6 +30,13 @@ bootstrap(function(use)
 		"williamboman/mason.nvim",
 		config = function()
 			require("plugins.mason")
+		end,
+	})
+
+	use({
+		"L3MON4D3/LuaSnip",
+		config = function()
+			require("plugins.luasnip")
 		end,
 	})
 
@@ -181,7 +186,7 @@ bootstrap(function(use)
 	-- Completion
 	use({
 		"hrsh7th/nvim-cmp",
-		after = { "nvim-autopairs", "nvim-lspconfig" },
+		after = { "nvim-autopairs", "nvim-lspconfig", "luasnip" },
 		requires = {
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-nvim-lua",
@@ -197,6 +202,7 @@ bootstrap(function(use)
 			vim.cmd([[packadd cmp-path]])
 			vim.cmd([[packadd cmp-cmdline]])
 			vim.cmd([[packadd nvim-cmp]])
+			vim.cmd([[packadd luasnip]])
 
 			require("plugins.cmp")
 		end,
@@ -225,20 +231,20 @@ bootstrap(function(use)
 		end,
 	})
 
-	use({
-		"nanozuki/tabby.nvim",
-    after = {"lualine.nvim"},
-		config = function()
-			require("plugins.tabby")
-		end,
-	})
-
 	-- use({
-	-- 	"akinsho/bufferline.nvim",
+	-- 	"nanozuki/tabby.nvim",
+	--    after = {"lualine.nvim"},
 	-- 	config = function()
-	-- 		require("plugins.bufferline")
+	-- 		require("plugins.tabby")
 	-- 	end,
 	-- })
+
+	use({
+		"akinsho/bufferline.nvim",
+		config = function()
+			require("plugins.bufferline")
+		end,
+	})
 
 	use({
 		"nvim-lualine/lualine.nvim",
@@ -329,12 +335,11 @@ bootstrap(function(use)
 
 	use({
 		"glepnir/lspsaga.nvim",
-    after = {"nvim-lspconfig"},
+		after = { "nvim-lspconfig" },
 		branch = "main",
-    cmd = {'Lspsaga', 'LSOutlineToggle', 'LspsagaFloaterm'},
+		cmd = { "Lspsaga", "LSOutlineToggle", "LspsagaFloaterm" },
 		config = function()
 			require("plugins.lspsaga")
 		end,
 	})
-
 end)
