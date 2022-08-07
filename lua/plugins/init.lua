@@ -347,4 +347,9 @@ bootstrap(function(use)
 			require("plugins.lspsaga")
 		end,
 	})
+
+	use({
+		"simrat39/symbols-outline.nvim",
+		cmd = { "SymbolsOutline", "SymbolsOutlineOpen", "SymbolsOutlineClose" },
+	})
 end)

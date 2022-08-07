@@ -4,7 +4,7 @@ vim.opt.updatetime = 300
 vim.opt.swapfile = false
 
 local script_paths = require("util.script-path")
-script_paths.register_script('keymaps')
+script_paths.register_script("keymaps")
 
 vim.api.nvim_clear_autocmds({
 	event = { "CursorHold" },
@@ -171,6 +171,13 @@ vim.keymap.set("n", "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<CR>", { si
 
 vim.keymap.set("n", "<A-n>", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = true, noremap = true })
 vim.keymap.set("n", "<A-N>", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { silent = true, noremap = true })
+
+vim.keymap.set("n", "<leader>ts", "<cmd>SymbolsOutline<CR>", {
+	desc = "Toggle symbols outline",
+})
+vim.keymap.set("n", "<leader>tf", "<cmd>Neotree toggle<CR>", {
+	desc = "Toggle file explorer",
+})
 
 -- vim.keymap.set("n", "<leader>ca", '<CMD>CodeActionMenu<CR>', vim.tbl_extend("force", opts, { desc = "Show associated code actions" }))
 -- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
