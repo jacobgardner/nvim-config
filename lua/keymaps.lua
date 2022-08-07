@@ -1,5 +1,23 @@
 local fs = require("util.font-size")
 
+vim.opt.updatetime = 300
+vim.opt.swapfile = false
+
+local script_paths = require("util.script-path")
+script_paths.register_script('keymaps')
+
+vim.api.nvim_clear_autocmds({
+	event = { "CursorHold" },
+})
+
+vim.keymap.set({ "n", "i" }, "<C-space>", "<CMD>Lspsaga hover_doc<CR>", {})
+
+vim.keymap.set({ "n" }, "<leader>ek", function()
+	vim.cmd("edit " .. script_paths.get_script_path("keymaps"))
+end, {
+	desc = "Edit Keymaps",
+})
+
 vim.keymap.set({ "n", "i" }, "<C-f>", vim.lsp.buf.formatting, {})
 vim.keymap.set("n", "<C-n>", "<cmd>Neotree toggle position=right<CR>", {})
 vim.keymap.set("n", "<leader>tp", "<cmd>TroubleToggle<CR>", { desc = "Toggle Problems Panel" })
@@ -156,3 +174,21 @@ vim.keymap.set("n", "<A-N>", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { silent =
 
 -- vim.keymap.set("n", "<leader>ca", '<CMD>CodeActionMenu<CR>', vim.tbl_extend("force", opts, { desc = "Show associated code actions" }))
 -- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+--
+
+-- vim.keymap.set('i', '', function() end, {
+--   silent = true,
+--   expr = true,
+-- })
+
+-- imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'
+-- " -1 for jumping backwards.
+-- inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
+--
+-- snoremap <silent> <Tab> <cmd>lua require('luasnip').jump(1)<Cr>
+-- snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
+--
+-- " For changing choices in choiceNodes (not strictly necessary for a basic setup).
+-- imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
+-- smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
+--

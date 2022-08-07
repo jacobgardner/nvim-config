@@ -1,13 +1,20 @@
 -- Setup nvim-cmp.
 local cmp = require("cmp")
 local lspconfig = require("lspconfig")
+local luasnip = require("luasnip")
+
+vim.cmd([[highlight link CmpItemAbbrMatchFuzzy CmpItemAbbrMatch]])
 
 cmp.setup({
 	snippet = {
 		expand = function(args)
-			require("luasnip").lsp_expand(args.body)
+			luasnip.lsp_expand(args.body)
 		end,
 	},
+	view = {
+		entries = {},
+	},
+	preselect = cmp.PreselectMode.None,
 	window = {
 		-- completion = cmp.config.window.bordered(),
 		-- documentation = cmp.config.window.bordered(),
@@ -16,6 +23,8 @@ cmp.setup({
 		["<Tab>"] = function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
+			elseif luasnip.expand_or_jumpable() then
+				luasnip.expand_or_jump()
 			else
 				fallback()
 			end
@@ -23,6 +32,8 @@ cmp.setup({
 		["<S-Tab>"] = function(fallback)
 			if cmp.visible() then
 				cmp.select_prev_item()
+			elseif luasnip.jumpable(-1) then
+				luasnip.jump(-1)
 			else
 				fallback()
 			end
@@ -31,12 +42,14 @@ cmp.setup({
 		["<C-f>"] = cmp.mapping.scroll_docs(4),
 		["<C-Space>"] = cmp.mapping.complete(),
 		["<C-e>"] = cmp.mapping.abort(),
+		-- ["("] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 		["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 	}),
 	sources = cmp.config.sources({
 		{ name = "nvim_lsp" },
-		{ name = "nvim_lua" },
+		-- { name = "nvim_lsp_signature_help" },
 		{ name = "buffer" },
+		{ name = "nvim_lua" },
 	}),
 })
 

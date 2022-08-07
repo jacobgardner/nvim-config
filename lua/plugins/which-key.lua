@@ -42,3 +42,17 @@ wk.register({
     name = "+workspace (add, remove, list...)"
   }
 })
+
+wk.register({
+  ["<leader>e"] = {
+    name = "+edit (keymaps, plugins, etc...)"
+  }
+})
+
+
+wk.register({
+  ["<leader>c"] = {
+    name = "+code action (...)"
+  }
+})
+

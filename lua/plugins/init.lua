@@ -1,7 +1,5 @@
 local bootstrap = require("plugins.bootstrap")
 
-local shit = function(unused) end
-
 bootstrap(function(use)
 	-- use({
 	-- 	"Shatur/neovim-session-manager",
@@ -53,10 +51,8 @@ bootstrap(function(use)
 
 	use({
 		"neovim/nvim-lspconfig",
-		-- requires = { "williamboman/mason-lspconfig.nvim" },
+		-- after = { "lsp_signature.nvim" },
 		config = function()
-			-- vim.cmd([[packadd mason-lspconfig.nvim]])
-
 			require("plugins.lspconfig")
 		end,
 	})
@@ -186,8 +182,9 @@ bootstrap(function(use)
 	-- Completion
 	use({
 		"hrsh7th/nvim-cmp",
-		after = { "nvim-autopairs", "nvim-lspconfig", "luasnip" },
+		after = { "nvim-autopairs", "nvim-lspconfig", "LuaSnip" },
 		requires = {
+			"hrsh7th/cmp-nvim-lsp-signature-help",
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-nvim-lua",
 			"hrsh7th/cmp-buffer",
@@ -202,9 +199,17 @@ bootstrap(function(use)
 			vim.cmd([[packadd cmp-path]])
 			vim.cmd([[packadd cmp-cmdline]])
 			vim.cmd([[packadd nvim-cmp]])
-			vim.cmd([[packadd luasnip]])
+			vim.cmd([[packadd LuaSnip]])
 
 			require("plugins.cmp")
+		end,
+	})
+
+	use({
+		"ray-x/lsp_signature.nvim",
+		after = { "nvim-lspconfig" },
+		config = function()
+			require("plugins.lsp_signature")
 		end,
 	})
 

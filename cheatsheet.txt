@@ -8,3 +8,6 @@ Go To References | gr
 Format Code | <C-i>, <C-I>
 Escape From Terminal (Go to Normal Mode) | <C-esc>
 Go To Next/Previous Problem | <A-n> / <A-N>
+Next/Prev Buffer | <Tab> / <S-Tab>
+Delete buffers to the left/right | <A-H> / <A-L>
+Move buffers Left/Right | <A-h> / <A-l>
