@@ -10,6 +10,9 @@ vim.api.nvim_clear_autocmds({
 	event = { "CursorHold" },
 })
 
+vim.keymap.set('i', '<C-BS>', '<C-w>', {})
+vim.keymap.set('i', '<C-h>', '<C-w>', {})
+
 vim.keymap.set({ "n", "i" }, "<C-space>", "<CMD>Lspsaga hover_doc<CR>", {})
 
 vim.keymap.set({ "n" }, "<leader>ek", function()
@@ -162,6 +165,9 @@ vim.keymap.set("n", "gh", "<CMD>Lspsaga lsp_finder<CR>", { silent = true, norema
 vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true })
 vim.keymap.set("n", "gs", "<Cmd>Lspsaga signature_help<CR>", { silent = true, noremap = true })
 vim.keymap.set("n", "gr", "<cmd>Lspsaga rename<CR>", { silent = true, noremap = true })
+vim.keymap.set("n", "<F2>", "<cmd>Lspsaga rename<CR>", { silent = true, noremap = true })
+
+
 -- vim.keymap.set("n", "gd", "<cmd>Lspsaga preview_definition<CR>", { silent = true })
 vim.keymap.set("n", "gd", function()
 	vim.cmd([[packadd telescope.nvim]])

@@ -84,6 +84,8 @@ local languages = {
 	-- Rust tools does this for us, see rust-tools.lua
 	-- rust_analyzer = {},
 	eslint = {},
+  pyright = {},
+  spectral = {},
 	tsserver = {
 		capabilities = {
 			document_formatting = false,

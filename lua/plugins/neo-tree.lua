@@ -69,3 +69,5 @@ nt.setup({
 		},
 	},
 })
+
+vim.cmd[[highlight NeoTreeTitleBar guifg=#000000 guibg=#FFFFFF]]

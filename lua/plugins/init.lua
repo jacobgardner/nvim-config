@@ -79,13 +79,9 @@ bootstrap(function(use)
 
 	use({
 		"nvim-treesitter/nvim-treesitter",
+		requires = { { "windwp/nvim-ts-autotag" } },
 		config = function()
-			require("nvim-treesitter.configs").setup({
-				ensure_installed = { "rust", "typescript", "javascript", "lua", "hcl", "python" },
-				highlight = {
-					enable = true,
-				},
-			})
+			require("plugins.treesitter")
 		end,
 	})
 
@@ -336,6 +332,10 @@ bootstrap(function(use)
 
 			require("plugins.cheatsheet")
 		end,
+	})
+
+	use({
+		"styled-components/vim-styled-components",
 	})
 
 	use({
