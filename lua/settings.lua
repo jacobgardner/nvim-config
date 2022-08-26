@@ -40,3 +40,11 @@ vim.g.neo_tree_remove_legacy_commands = 1
 opt.ignorecase = true
 opt.smartcase = true
 
+vim.g.symbols_outline = {
+  
+}
+
+vim.cmd[[au BufRead,BufNewFile *.wgsl set filetype=wgsl]]
+vim.cmd[[au BufRead,BufNewFile *.vert set filetype=wgsl]]
+vim.cmd[[au BufRead,BufNewFile *.frag set filetype=wgsl]]
+

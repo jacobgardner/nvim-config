@@ -12,9 +12,6 @@ local sources = {
 	b.formatting.prettier,
 	b.diagnostics.tsc,
 
-	-- Rust
-	b.formatting.rustfmt,
-
 	-- Lua
 	b.formatting.stylua,
 

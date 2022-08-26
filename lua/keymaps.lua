@@ -6,9 +6,9 @@ vim.opt.swapfile = false
 local script_paths = require("util.script-path")
 script_paths.register_script("keymaps")
 
-vim.api.nvim_clear_autocmds({
-	event = { "CursorHold" },
-})
+-- vim.api.nvim_clear_autocmds({
+-- 	event = { "CursorHold" },
+-- })
 
 vim.keymap.set('i', '<C-BS>', '<C-w>', {})
 vim.keymap.set('i', '<C-h>', '<C-w>', {})

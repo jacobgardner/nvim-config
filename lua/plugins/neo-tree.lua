@@ -36,6 +36,7 @@ nt.setup({
 		},
 	},
 	filesystem = {
+		follow_current_file = true,
 		bind_to_cwd = true,
 		cwd_target = {
 			sidebar = "window",

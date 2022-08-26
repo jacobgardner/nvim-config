@@ -83,6 +83,7 @@ cmp.setup.cmdline(":", {
 local languages = {
 	-- Rust tools does this for us, see rust-tools.lua
 	-- rust_analyzer = {},
+  wgsl_analyzer = {},
 	eslint = {},
   pyright = {},
   spectral = {},
