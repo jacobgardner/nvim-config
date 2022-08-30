@@ -334,9 +334,9 @@ bootstrap(function(use)
 		end,
 	})
 
-	use({
-		"styled-components/vim-styled-components",
-	})
+	-- use({
+	-- 	"styled-components/vim-styled-components",
+	-- })
 
 	use({
 		"glepnir/lspsaga.nvim",
