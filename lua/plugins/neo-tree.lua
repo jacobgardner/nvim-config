@@ -35,6 +35,9 @@ nt.setup({
 			},
 		},
 	},
+	window = {
+		position = "right",
+	},
 	filesystem = {
 		follow_current_file = true,
 		bind_to_cwd = true,
@@ -71,4 +74,4 @@ nt.setup({
 	},
 })
 
-vim.cmd[[highlight NeoTreeTitleBar guifg=#000000 guibg=#FFFFFF]]
+vim.cmd([[highlight NeoTreeTitleBar guifg=#000000 guibg=#FFFFFF]])

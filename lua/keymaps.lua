@@ -10,10 +10,10 @@ script_paths.register_script("keymaps")
 -- 	event = { "CursorHold" },
 -- })
 
-vim.keymap.set('i', '<C-BS>', '<C-w>', {})
-vim.keymap.set('i', '<C-h>', '<C-w>', {})
+vim.keymap.set("i", "<C-BS>", "<C-w>", {})
+vim.keymap.set("i", "<C-h>", "<C-w>", {})
 
-vim.keymap.set({ "n", "i" }, "<C-space>", "<CMD>Lspsaga hover_doc<CR>", {})
+vim.keymap.set({ "n" }, "<leader>s", vim.lsp.buf.hover, { desc = "Show lsp hover doc" })
 
 vim.keymap.set({ "n" }, "<leader>ek", function()
 	vim.cmd("edit " .. script_paths.get_script_path("keymaps"))
@@ -22,7 +22,8 @@ end, {
 })
 
 vim.keymap.set({ "n", "i" }, "<C-f>", vim.lsp.buf.formatting, {})
-vim.keymap.set("n", "<C-n>", "<cmd>Neotree toggle position=right<CR>", {})
+vim.keymap.set("n", "<C-n>", "<cmd>Neotree position=right<CR>", {})
+vim.keymap.set("n", "<C-A-n>", "<cmd>Neotree toggle position=right<CR>", {})
 vim.keymap.set("n", "<leader>tp", "<cmd>TroubleToggle<CR>", { desc = "Toggle Problems Panel" })
 vim.keymap.set("n", "<leader>rl", function()
 	vim.cmd("luafile %")
@@ -146,10 +147,10 @@ vim.keymap.set("v", "<A-j>", "<CMD>move '>+1<CR>gv=gv", {})
 vim.keymap.set("v", "<A-k>", "<CMD>move '<-2<CR>gv=gv", {})
 
 -- Window Movement / Resizing
-vim.keymap.set("n", "<C-h>", [[<C-W>h]], {})
-vim.keymap.set("n", "<C-j>", [[<C-W>j]], {})
-vim.keymap.set("n", "<C-k>", [[<C-W>k]], {})
-vim.keymap.set("n", "<C-l>", [[<C-W>l]], {})
+vim.keymap.set("n", "<C-h>", "<C-W>h", {})
+vim.keymap.set("n", "<C-j>", "<C-W>j", {})
+vim.keymap.set("n", "<C-k>", "<C-W>k", {})
+vim.keymap.set("n", "<C-l>", "<C-W>l", {})
 
 -- Tab keymaps
 vim.keymap.set("n", "<C-tab>", "<CMD>tabnext<CR>", {})
@@ -158,22 +159,36 @@ vim.keymap.set("n", "<C-S-tab>", "<CMD>tabprev<CR>", {})
 -- TODO: Below this line are a lot of the default keymaps and need to be changed
 
 -- LSP Code Actions
-vim.keymap.set("n", "<leader>ca", "<CMD>Lspsaga code_action<CR>", { silent = true, noremap = true })
-vim.keymap.set("v", "<leader>ca", "<cmd><C-U>Lspsaga range_code_action<CR>", { silent = true, noremap = true })
+vim.keymap.set(
+	"n",
+	"<leader>ca",
+	"<CMD>Lspsaga code_action<CR>",
+	{ silent = true, noremap = true, desc = "Show code action menu" }
+)
+vim.keymap.set(
+	"v",
+	"<leader>ca",
+	"<cmd><C-U>Lspsaga range_code_action<CR>",
+	{ silent = true, noremap = true, desc = "Show code action menu" }
+)
 
-vim.keymap.set("n", "gh", "<CMD>Lspsaga lsp_finder<CR>", { silent = true, noremap = true })
-vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true })
-vim.keymap.set("n", "gs", "<Cmd>Lspsaga signature_help<CR>", { silent = true, noremap = true })
-vim.keymap.set("n", "gr", "<cmd>Lspsaga rename<CR>", { silent = true, noremap = true })
+vim.keymap.set("n", "gh", "<CMD>Lspsaga lsp_finder<CR>", { silent = true, noremap = true, desc = "LSP References" })
+vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true, desc = "Show hover doc" })
+vim.keymap.set("n", "gs", "<Cmd>Lspsaga signature_help<CR>", { silent = true, noremap = true, desc = "Show signature" })
+vim.keymap.set("n", "gr", "<cmd>Lspsaga rename<CR>", { silent = true, noremap = true, desc = "Rename token under cursor" })
 vim.keymap.set("n", "<F2>", "<cmd>Lspsaga rename<CR>", { silent = true, noremap = true })
-
 
 -- vim.keymap.set("n", "gd", "<cmd>Lspsaga preview_definition<CR>", { silent = true })
 vim.keymap.set("n", "gd", function()
 	vim.cmd([[packadd telescope.nvim]])
 	require("telescope.builtin").lsp_definitions({})
-end, { silent = true })
-vim.keymap.set("n", "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true, noremap = true })
+end, { silent = true, desc = "Go to definition of the token under cursor." })
+vim.keymap.set(
+	"n",
+	"<leader>cd",
+	"<cmd>Lspsaga show_line_diagnostics<CR>",
+	{ silent = true, noremap = true, desc = "Show diagnostics for the line" }
+)
 
 vim.keymap.set("n", "<A-n>", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = true, noremap = true })
 vim.keymap.set("n", "<A-N>", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { silent = true, noremap = true })

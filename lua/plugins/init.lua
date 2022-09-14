@@ -24,6 +24,20 @@ bootstrap(function(use)
 		end,
 	})
 
+  use({
+    'b0o/incline.nvim',
+    config = function()
+      require('plugins.incline')
+    end,
+  })
+
+  use({
+    'APZelos/blamer.nvim',
+    config = function()
+      require('plugins.blamer')
+    end
+  })
+
 	use({
 		"williamboman/mason.nvim",
 		config = function()

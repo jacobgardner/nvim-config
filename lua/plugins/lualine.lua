@@ -3,7 +3,7 @@ local lualine = require("lualine")
 lualine.setup({
 	options = {
 		theme = "dracula-nvim",
-		globalstatus = false,
+		globalstatus = true,
 	},
 	sections = {
 		lualine_c = {
