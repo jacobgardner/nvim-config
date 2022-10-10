@@ -21,7 +21,7 @@ end, {
 	desc = "Edit Keymaps",
 })
 
-vim.keymap.set({ "n", "i" }, "<C-f>", vim.lsp.buf.formatting, {})
+vim.keymap.set({ "n", "i" }, "<C-f>", function() vim.lsp.buf.format { async = true } end, {})
 vim.keymap.set("n", "<C-n>", "<cmd>Neotree position=right<CR>", {})
 vim.keymap.set("n", "<C-A-n>", "<cmd>Neotree toggle position=right<CR>", {})
 vim.keymap.set("n", "<leader>tp", "<cmd>TroubleToggle<CR>", { desc = "Toggle Problems Panel" })
@@ -175,7 +175,12 @@ vim.keymap.set(
 vim.keymap.set("n", "gh", "<CMD>Lspsaga lsp_finder<CR>", { silent = true, noremap = true, desc = "LSP References" })
 vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true, desc = "Show hover doc" })
 vim.keymap.set("n", "gs", "<Cmd>Lspsaga signature_help<CR>", { silent = true, noremap = true, desc = "Show signature" })
-vim.keymap.set("n", "gr", "<cmd>Lspsaga rename<CR>", { silent = true, noremap = true, desc = "Rename token under cursor" })
+vim.keymap.set(
+	"n",
+	"gr",
+	"<cmd>Lspsaga rename<CR>",
+	{ silent = true, noremap = true, desc = "Rename token under cursor" }
+)
 vim.keymap.set("n", "<F2>", "<cmd>Lspsaga rename<CR>", { silent = true, noremap = true })
 
 -- vim.keymap.set("n", "gd", "<cmd>Lspsaga preview_definition<CR>", { silent = true })
