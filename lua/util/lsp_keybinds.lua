@@ -10,7 +10,7 @@ M.on_attach = function(settings)
 
     if settings.capabilities ~= nil then
       for key, value in pairs(settings.capabilities) do
-        client.resolved_capabilities[key] = value
+        client.server_capabilities[key] = value
       end
     end
 

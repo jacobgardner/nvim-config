@@ -89,12 +89,12 @@ local languages = {
   spectral = {},
 	tsserver = {
 		capabilities = {
-			document_formatting = false,
+      documentFormattingProvider = false,
 		},
 	},
 	sumneko_lua = {
 		capabilities = {
-			document_formatting = false,
+      documentFormattingProvider = false,
 		},
 		settings = {
 			Lua = {

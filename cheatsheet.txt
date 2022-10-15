@@ -11,3 +11,5 @@ Go To Next/Previous Problem | <A-n> / <A-N>
 Next/Prev Buffer | <Tab> / <S-Tab>
 Delete buffers to the left/right | <A-H> / <A-L>
 Move buffers Left/Right | <A-h> / <A-l>
+Toggle Git Blame | :BlamerToggle
+Delete Current Buffer | :bd[elete][!]
