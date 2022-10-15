@@ -19,18 +19,18 @@ local sources = {
 	b.formatting.shfmt,
 	b.diagnostics.shellcheck.with({ diagnostics_format = "#{m} [#{c}]" }),
 
-  -- Python
-  b.formatting.autopep8,
+	-- Python
+	b.formatting.autopep8,
 }
 
 null_ls.setup({
 	debug = false,
 	sources = sources,
-	on_attach = function(client, bufnr)
-		vim.keymap.set({ "n", "i" }, "<C-i>", function()
-      local util = require('vim.lsp.util')
-      local params = util.make_formatting_params({})
-      client.request('textDocument/formatting', params, nil, bufnr)
-    end, { buffer = bufnr })
-	end,
+	-- on_attach = function(client, bufnr)
+	-- 	vim.keymap.set({ "n", "i" }, "<C-i>", function()
+	-- 		local util = require("vim.lsp.util")
+	-- 		local params = util.make_formatting_params({})
+	-- 		client.request("textDocument/formatting", params, nil, bufnr)
+  -- end,
+	-- 	end, { buffer = bufnr })
 })

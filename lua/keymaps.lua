@@ -21,9 +21,11 @@ end, {
 	desc = "Edit Keymaps",
 })
 
-vim.keymap.set({ "n", "i" }, "<C-f>", function() vim.lsp.buf.format { async = true } end, {})
-vim.keymap.set("n", "<C-n>", "<cmd>Neotree position=right<CR>", {})
-vim.keymap.set("n", "<C-A-n>", "<cmd>Neotree toggle position=right<CR>", {})
+vim.keymap.set({ "n", "i" }, "<C-f>", function()
+	vim.lsp.buf.format({ async = true })
+end, {})
+vim.keymap.set("n", "<C-n>", "<cmd>NvimTreeFocus<CR>", {})
+vim.keymap.set("n", "<C-A-n>", "<cmd>NvimTreeToggle<CR>", {})
 vim.keymap.set("n", "<leader>tp", "<cmd>TroubleToggle<CR>", { desc = "Toggle Problems Panel" })
 vim.keymap.set("n", "<leader>rl", function()
 	vim.cmd("luafile %")
@@ -201,7 +203,7 @@ vim.keymap.set("n", "<A-N>", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { silent =
 vim.keymap.set("n", "<leader>ts", "<cmd>SymbolsOutline<CR>", {
 	desc = "Toggle symbols outline",
 })
-vim.keymap.set("n", "<leader>tf", "<cmd>Neotree toggle<CR>", {
+vim.keymap.set("n", "<leader>tf", "<cmd>NvimTreeToggle<CR>", {
 	desc = "Toggle file explorer",
 })
 
