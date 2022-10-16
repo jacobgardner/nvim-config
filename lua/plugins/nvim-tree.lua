@@ -21,9 +21,15 @@ nvimTree.setup({
   update_focused_file = {
     enable = true
   },
+  filters = {
+    dotfiles = true,
+  },
   renderer = {
     group_empty = true,
     full_name = true,
+    icons = {
+      git_placement = "signcolumn"
+    },
     indent_markers = {
       enable = true,
     }

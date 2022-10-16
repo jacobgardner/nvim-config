@@ -3,8 +3,6 @@ local M = {}
 local update_font_size = function(font_size)
 	M.current_font_size = font_size
 
-  new_font = ''
-
   -- Has neovide load fonts from back to front so that it emulates font fallbacks.
   -- Probably pretty inefficient, but comma-based fallbacks in guifont were not working for me
   for i = #vim.g.default_gui_font, 1, -1 do
