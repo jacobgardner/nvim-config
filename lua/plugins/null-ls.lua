@@ -21,6 +21,9 @@ local sources = {
 
 	-- Python
 	b.formatting.autopep8,
+
+  -- Terraform
+  b.formatting.terraform_fmt
 }
 
 null_ls.setup({

@@ -6,7 +6,7 @@ vim.g.loaded_netrwPlugin = 1
 nvimTree.setup({
 	open_on_setup = true,
 	open_on_setup_file = true,
-  focus_empty_on_setup = true,
+  -- focus_empty_on_setup = true,
   hijack_cursor = true,
 	view = {
 		side = "right",

@@ -192,9 +192,10 @@ bootstrap(function(use)
 
 	use({
 		"nvim-tree/nvim-tree.lua",
+		tag = "nightly",
 		requires = {
-      "kyazdani42/nvim-web-devicons",
-      -- "nvim-tree/nvim-web-devicons",
+			"kyazdani42/nvim-web-devicons",
+			-- "nvim-tree/nvim-web-devicons",
 		},
 		config = function()
 			vim.cmd([[packadd nvim-web-devicons]])
@@ -379,5 +380,34 @@ bootstrap(function(use)
 	use({
 		"simrat39/symbols-outline.nvim",
 		cmd = { "SymbolsOutline", "SymbolsOutlineOpen", "SymbolsOutlineClose" },
+	})
+
+	use({
+		"mfussenegger/nvim-dap",
+		config = function()
+			require("plugins.nvim-dap")
+		end,
+	})
+
+	use({
+		"rcarriga/nvim-dap-ui",
+		requires = { "mfussenegger/nvim-dap" },
+		config = function()
+			require("plugins.nvim-dap-ui")
+		end,
+	})
+
+	use({
+		"microsoft/vscode-js-debug",
+		opt = true,
+		run = "npm install --legacy-peer-deps && npm run compile",
+	})
+
+	use({
+		"mxsdev/nvim-dap-vscode-js",
+		requires = { "mfussenegger/nvim-dap" },
+		config = function()
+			require("plugins.nvim-dap-vscode-js")
+		end,
 	})
 end)

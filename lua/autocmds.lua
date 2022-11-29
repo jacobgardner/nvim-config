@@ -1,5 +1,4 @@
-
--- When focusing on a terinal window, start in 
+-- When focusing on a terinal window, start in
 -- insert mode
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
 	pattern = "term://*",
@@ -8,3 +7,12 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 		vim.cmd([[startinsert!]])
 	end,
 })
+
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+	pattern = "*.jade",
+	callback = function()
+		vim.bo.filetype = "pug"
+	end,
+})
+
+
