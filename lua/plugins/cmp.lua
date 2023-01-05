@@ -83,18 +83,18 @@ cmp.setup.cmdline(":", {
 local languages = {
 	-- Rust tools does this for us, see rust-tools.lua
 	-- rust_analyzer = {},
-  wgsl_analyzer = {},
+	wgsl_analyzer = {},
 	eslint = {},
-  pyright = {},
-  spectral = {},
+	pyright = {},
+	spectral = {},
 	tsserver = {
 		capabilities = {
-      documentFormattingProvider = false,
+			documentFormattingProvider = false,
 		},
 	},
 	sumneko_lua = {
 		capabilities = {
-      documentFormattingProvider = false,
+			documentFormattingProvider = false,
 		},
 		settings = {
 			Lua = {
@@ -105,6 +105,11 @@ local languages = {
 		},
 	},
 }
+
+if vim.fn.has("win32") then
+  -- spectral-language-server currently doesn't work on windows
+	languages.spectral = nil
+end
 
 local lsp_keybinds = require("util.lsp_keybinds")
 
