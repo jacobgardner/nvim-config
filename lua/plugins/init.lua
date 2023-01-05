@@ -94,6 +94,9 @@ bootstrap(function(use)
 	use({
 		"nvim-treesitter/nvim-treesitter",
 		requires = { { "windwp/nvim-ts-autotag" } },
+		run = function()
+			require("nvim-treesitter.install").update({ with_sync = true })
+		end,
 		config = function()
 			require("plugins.treesitter")
 		end,
