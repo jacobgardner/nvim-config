@@ -1,4 +1,5 @@
 local fs = require("util.font-size")
+local debugger = require("util.debugger")
 
 vim.opt.updatetime = 300
 vim.opt.swapfile = false
@@ -207,6 +208,63 @@ vim.keymap.set("n", "<leader>tf", "<cmd>NvimTreeToggle<CR>", {
 	desc = "Toggle file explorer",
 })
 
+-- Debugging
+vim.keymap.set("n", "<F5>", function()
+	debugger.with_setup(function()
+		require("dap").continue()
+	end)
+end, { desc = "[Debugging] Continue" })
+
+vim.keymap.set("n", "<F10>", function()
+	debugger.with_setup(function()
+		require("dap").step_over()
+	end)
+end, { desc = "[Debugging] Step Over (Next)" })
+
+vim.keymap.set("n", "<F11>", function()
+	debugger.with_setup(function()
+		require("dap").step_into()
+	end)
+end, { desc = "[Debugging] Step Into" })
+
+vim.keymap.set("n", "<F12>", function()
+	debugger.with_setup(function()
+		require("dap").step_out()
+	end)
+end, { desc = "[Debugging] Step Out Of" })
+
+vim.keymap.set("n", "<leader>b", function()
+	require("dap").toggle_breakpoint()
+end, { desc = "[Debugging] Toggle Breakpoint" })
+
+vim.keymap.set("n", "<leader>dB", function()
+	require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
+end, { desc = "[Debugging] Toggle Breakpoint w/ Condition" })
+
+vim.keymap.set("n", "<leader>dl", function()
+		require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
+end, { desc = "[Debugging] Add log breakpoint" })
+
+vim.keymap.set("n", "<leader>dr", function()
+	debugger.with_setup(function()
+		require("dap").repl.open()
+	end)
+end, { desc = "[Debugging] Open repl" })
+
+vim.keymap.set("n", "<leader>dL", function()
+	debugger.with_setup(function()
+		require("dap").run_last()
+	end)
+end, { desc = "[Debugging] Run last" })
+
+vim.keymap.set("n", "<leader>dt", function()
+	require("dapui").toggle()
+end, { desc = "[Debugging] Toggle Debugging UI" })
+
+-- nnoremap <silent> <Leader>dr <Cmd>lua require'dap'.repl.open()<CR>
+-- nnoremap <silent> <Leader>dl <Cmd>lua require'dap'.run_last()<CR>
+--
+--
 -- vim.keymap.set("n", "<leader>ca", '<CMD>CodeActionMenu<CR>', vim.tbl_extend("force", opts, { desc = "Show associated code actions" }))
 -- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 --

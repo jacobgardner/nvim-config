@@ -56,3 +56,8 @@ wk.register({
   }
 })
 
+wk.register({
+  ["<leader>d"] = {
+    name = "+debug action (breakpoint, step over, etc.)"
+  }
+})
