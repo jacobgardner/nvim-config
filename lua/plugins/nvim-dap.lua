@@ -12,3 +12,9 @@ dap.adapters.lldb = {
 		detached = false,
 	},
 }
+
+vim.fn.sign_define('DapBreakpoint', {text='', texthl='debugBreakpoint', linehl='', numhl=''})
+vim.fn.sign_define('DapBreakpointCondition', {text='', texthl='debugBreakpoint', linehl='', numhl=''})
+vim.fn.sign_define('DapLogPoint', {text='', texthl='debugBreakpoint', linehl='', numhl=''})
+vim.fn.sign_define('DapStopped', {text='ﰲ', texthl='debugPc', linehl='debugPc', numhl='debugPc'})
+vim.fn.sign_define('DapBreakpointRejected', {text='', texthl='debugBreakpoint', linehl='', numhl=''})

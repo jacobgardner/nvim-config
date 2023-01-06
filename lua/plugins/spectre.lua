@@ -1,3 +1,6 @@
 local spectre = require("spectre")
 
-spectre.setup({})
+spectre.setup({
+  color_devicons = true,
+  live_update = true,
+})

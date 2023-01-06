@@ -12,15 +12,8 @@ bootstrap(function(use)
 	use({
 		"Mofiqul/dracula.nvim",
 		config = function()
-			vim.cmd([[colorscheme dracula]])
-			local colors = require("dracula").colors()
-			local set_context_cmd = "hi TreesitterContext guibg=" .. colors.comment
-			local set_fidget_title_cmd = "hi FidgetTitle guifg=" .. colors.comment
-			local set_fidget_task_cmd = "hi FidgetTask guibg=" .. colors.orange
+      require('plugins.dracula')
 
-			vim.cmd(set_context_cmd)
-			vim.cmd(set_fidget_title_cmd)
-			vim.cmd(set_fidget_task_cmd)
 		end,
 	})
 
