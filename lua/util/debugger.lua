@@ -43,10 +43,11 @@ M.rerootDebugger = function()
 		return
 	end
 
-  print('Loading launch.json..')
-  require('dap.ext.vscode').load_launchjs(launch_path, {
-    ['pwa-node'] = {'javascript', 'typescript'},
-  })
+	print("Loading launch.json..")
+	require("dap.ext.vscode").load_launchjs(launch_path, {
+		["pwa-node"] = { "javascript", "typescript" },
+		lldb = { "rust" },
+	})
 end
 
 M.with_setup = function(after)
