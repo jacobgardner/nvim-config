@@ -163,17 +163,17 @@ vim.keymap.set("n", "<C-S-tab>", "<CMD>tabprev<CR>", {})
 
 -- LSP Code Actions
 vim.keymap.set(
-	"n",
+	{"v", "n"},
 	"<leader>ca",
 	"<CMD>Lspsaga code_action<CR>",
 	{ silent = true, noremap = true, desc = "Show code action menu" }
 )
-vim.keymap.set(
-	"v",
-	"<leader>ca",
-	"<cmd><C-U>Lspsaga range_code_action<CR>",
-	{ silent = true, noremap = true, desc = "Show code action menu" }
-)
+-- vim.keymap.set(
+-- 	"v",
+-- 	"<leader>ca",
+-- 	"<cmd><C-U>Lspsaga range_code_action<CR>",
+-- 	{ silent = true, noremap = true, desc = "Show code action menu" }
+-- )
 
 vim.keymap.set("n", "gh", "<CMD>Lspsaga lsp_finder<CR>", { silent = true, noremap = true, desc = "LSP References" })
 vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true, desc = "Show hover doc" })
