@@ -92,7 +92,7 @@ local languages = {
 			documentFormattingProvider = false,
 		},
 	},
-	sumneko_lua = {
+	lua_ls = {
 		capabilities = {
 			documentFormattingProvider = false,
 		},

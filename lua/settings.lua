@@ -44,6 +44,7 @@ vim.g.symbols_outline = {
   
 }
 
+vim.cmd[[au BufRead,BufNewFile *.tf set filetype=teraterm]]
 vim.cmd[[au BufRead,BufNewFile *.wgsl set filetype=wgsl]]
 vim.cmd[[au BufRead,BufNewFile *.vert set filetype=wgsl]]
 vim.cmd[[au BufRead,BufNewFile *.frag set filetype=wgsl]]

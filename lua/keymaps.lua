@@ -22,6 +22,15 @@ end, {
 	desc = "Edit Keymaps",
 })
 
+vim.keymap.set({ "n" }, "<leader>tc", function()
+	local baleia = require("baleia").setup()
+
+  baleia.once(0)
+
+end, {
+	desc = "ANSI Colorize",
+})
+
 vim.keymap.set({ "n", "i" }, "<C-f>", function()
 	vim.lsp.buf.format({ async = true })
 end, {})
@@ -242,7 +251,7 @@ vim.keymap.set("n", "<leader>dB", function()
 end, { desc = "[Debugging] Toggle Breakpoint w/ Condition" })
 
 vim.keymap.set("n", "<leader>dl", function()
-		require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
+	require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
 end, { desc = "[Debugging] Add log breakpoint" })
 
 vim.keymap.set("n", "<leader>dr", function()

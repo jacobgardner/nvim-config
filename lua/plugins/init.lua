@@ -12,8 +12,7 @@ bootstrap(function(use)
 	use({
 		"Mofiqul/dracula.nvim",
 		config = function()
-      require('plugins.dracula')
-
+			require("plugins.dracula")
 		end,
 	})
 
@@ -69,6 +68,14 @@ bootstrap(function(use)
 		keys = { "<leader>" },
 		config = function()
 			require("plugins.which-key")
+		end,
+	})
+
+	use({
+		"m00qek/baleia.nvim",
+		tag = "v1.3.0",
+		config = function()
+			require("baleia").setup()
 		end,
 	})
 

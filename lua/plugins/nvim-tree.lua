@@ -22,7 +22,7 @@ nvimTree.setup({
     enable = true
   },
   filters = {
-    dotfiles = true,
+    dotfiles = false,
   },
   renderer = {
     group_empty = true,
