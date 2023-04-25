@@ -50,6 +50,7 @@ cmp.setup({
 		-- { name = "nvim_lsp_signature_help" },
 		{ name = "buffer" },
 		{ name = "nvim_lua" },
+		{ name = "crates" },
 	}),
 })
 
@@ -107,7 +108,7 @@ local languages = {
 }
 
 if vim.fn.has("win32") then
-  -- spectral-language-server currently doesn't work on windows
+	-- spectral-language-server currently doesn't work on windows
 	languages.spectral = nil
 end
 

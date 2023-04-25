@@ -14,6 +14,7 @@ require("rust-tools").setup({
 		),
 	},
 	server = {
+    standalone = true,
 		on_attach = lsp_keybinds.on_attach,
 		capabilities = capabilities,
 	},
