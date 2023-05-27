@@ -14,8 +14,6 @@ script_paths.register_script("keymaps")
 vim.keymap.set("i", "<C-BS>", "<C-w>", {})
 vim.keymap.set("i", "<C-h>", "<C-w>", {})
 
-vim.keymap.set({ "n" }, "<leader>s", vim.lsp.buf.hover, { desc = "Show lsp hover doc" })
-
 vim.keymap.set({ "n" }, "<leader>ek", function()
 	vim.cmd("edit " .. script_paths.get_script_path("keymaps"))
 end, {
@@ -25,8 +23,7 @@ end, {
 vim.keymap.set({ "n" }, "<leader>tc", function()
 	local baleia = require("baleia").setup()
 
-  baleia.once(0)
-
+	baleia.once(0)
 end, {
 	desc = "ANSI Colorize",
 })
@@ -172,7 +169,7 @@ vim.keymap.set("n", "<C-S-tab>", "<CMD>tabprev<CR>", {})
 
 -- LSP Code Actions
 vim.keymap.set(
-	{"v", "n"},
+	{ "v", "n" },
 	"<leader>ca",
 	"<CMD>Lspsaga code_action<CR>",
 	{ silent = true, noremap = true, desc = "Show code action menu" }
@@ -184,6 +181,12 @@ vim.keymap.set(
 -- 	{ silent = true, noremap = true, desc = "Show code action menu" }
 -- )
 
+vim.keymap.set(
+	{ "n" },
+	"<leader>s",
+	"<CMD>Lspsaga hover_doc<CR>",
+	{ desc = "Show lsp hover doc", silent = true, noremap = true }
+)
 vim.keymap.set("n", "gh", "<CMD>Lspsaga lsp_finder<CR>", { silent = true, noremap = true, desc = "LSP References" })
 vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true, desc = "Show hover doc" })
 vim.keymap.set("n", "gs", "<Cmd>Lspsaga signature_help<CR>", { silent = true, noremap = true, desc = "Show signature" })

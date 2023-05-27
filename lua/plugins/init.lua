@@ -148,64 +148,63 @@ bootstrap(function(use)
 		end,
 	})
 
-	-- -- Should be able to be lazy loaded, but broke last time I tried
-	-- use({
-	-- 	"nvim-neo-tree/neo-tree.nvim",
-	-- 	after = { "nvim-lspconfig" },
-	-- 	branch = "v2.x",
-	-- 	-- cmd = { "Neotree" },
-	-- 	requires = {
-	-- 		"nvim-lua/plenary.nvim",
-	-- 		"kyazdani42/nvim-web-devicons",
-	-- 		"MunifTanjim/nui.nvim",
-	-- 		{
-	-- 			-- only needed if you want to use the commands with "_with_window_picker" suffix
-	-- 			"s1n7ax/nvim-window-picker",
-	-- 			tag = "v1.*",
-	-- 			config = function()
-	-- 				require("window-picker").setup({
-	-- 					autoselect_one = true,
-	-- 					include_current = false,
-	-- 					filter_rules = {
-	-- 						-- filter using buffer options
-	-- 						bo = {
-	-- 							-- if the file type is one of following, the window will be ignored
-	-- 							filetype = { "neo-tree", "neo-tree-popup", "notify", "quickfix" },
-	--
-	-- 							-- if the buffer type is one of following, the window will be ignored
-	-- 							buftype = { "terminal" },
-	-- 						},
-	-- 					},
-	-- 					other_win_hl_color = "#e35e4f",
-	-- 				})
-	-- 			end,
-	-- 		},
-	-- 	},
-	-- 	config = function()
-	-- 		vim.cmd([[packadd plenary.nvim]])
-	-- 		vim.cmd([[packadd nvim-web-devicons]])
-	-- 		vim.cmd([[packadd nui.nvim]])
-	-- 		vim.cmd([[packadd nvim-window-picker]])
-	-- 		vim.cmd([[packadd nvim-lspconfig]])
-	--
-	-- 		require("plugins.neo-tree")
-	-- 	end,
-	-- })
-	--
-
+	-- Should be able to be lazy loaded, but broke last time I tried
 	use({
-		"nvim-tree/nvim-tree.lua",
-		tag = "nightly",
+		"nvim-neo-tree/neo-tree.nvim",
+		after = { "nvim-lspconfig" },
+		branch = "v2.x",
+		-- cmd = { "Neotree" },
 		requires = {
+			"nvim-lua/plenary.nvim",
 			"kyazdani42/nvim-web-devicons",
-			-- "nvim-tree/nvim-web-devicons",
+			"MunifTanjim/nui.nvim",
+			{
+				-- only needed if you want to use the commands with "_with_window_picker" suffix
+				"s1n7ax/nvim-window-picker",
+				tag = "v1.*",
+				config = function()
+					require("window-picker").setup({
+						autoselect_one = true,
+						include_current = false,
+						filter_rules = {
+							-- filter using buffer options
+							bo = {
+								-- if the file type is one of following, the window will be ignored
+								filetype = { "neo-tree", "neo-tree-popup", "notify", "quickfix" },
+
+								-- if the buffer type is one of following, the window will be ignored
+								buftype = { "terminal" },
+							},
+						},
+						other_win_hl_color = "#e35e4f",
+					})
+				end,
+			},
 		},
 		config = function()
-			vim.cmd([[packadd nvim-web-devicons]])
-
-			require("plugins.nvim-tree")
+			-- vim.cmd([[packadd plenary.nvim]])
+			-- vim.cmd([[packadd nvim-web-devicons]])
+			-- vim.cmd([[packadd nui.nvim]])
+			-- vim.cmd([[packadd nvim-window-picker]])
+			-- vim.cmd([[packadd nvim-lspconfig]])
+			--
+			require("plugins.neo-tree")
 		end,
 	})
+
+	-- use({
+	-- 	"nvim-tree/nvim-tree.lua",
+	-- 	tag = "nightly",
+	-- 	requires = {
+	-- 		"kyazdani42/nvim-web-devicons",
+	-- 		-- "nvim-tree/nvim-web-devicons",
+	-- 	},
+	-- 	config = function()
+	-- 		vim.cmd([[packadd nvim-web-devicons]])
+	--
+	-- 		require("plugins.nvim-tree")
+	-- 	end,
+	-- })
 
 	-- Completion
 	use({

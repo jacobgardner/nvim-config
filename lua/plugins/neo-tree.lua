@@ -12,6 +12,15 @@ vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSig
 local highlights = require("neo-tree.ui.highlights")
 
 nt.setup({
+  sources = {
+    "filesystem",
+    "buffers",
+    "git_status",
+    "document_symbols",
+  },
+  source_selector = {
+    winbar = true,
+  },
 	renderers = {
 		directory = {
 			{ "indent" },
@@ -39,6 +48,7 @@ nt.setup({
 		position = "right",
 	},
 	filesystem = {
+    async_directory_scan = "auto",
 		follow_current_file = true,
 		bind_to_cwd = true,
 		cwd_target = {
