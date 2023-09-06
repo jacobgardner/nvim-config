@@ -31,8 +31,8 @@ end, {
 vim.keymap.set({ "n", "i" }, "<C-f>", function()
 	vim.lsp.buf.format({ async = true })
 end, {})
-vim.keymap.set("n", "<C-n>", "<cmd>NvimTreeFocus<CR>", {})
-vim.keymap.set("n", "<C-A-n>", "<cmd>NvimTreeToggle<CR>", {})
+vim.keymap.set("n", "<C-n>", "<cmd>Neotree position=right toggle<CR>", {})
+vim.keymap.set("n", "<C-A-n>", "<cmd>Neotree position=right toggle<CR>", {})
 vim.keymap.set("n", "<leader>tp", "<cmd>TroubleToggle<CR>", { desc = "Toggle Problems Panel" })
 vim.keymap.set("n", "<leader>rl", function()
 	vim.cmd("luafile %")
@@ -76,39 +76,32 @@ vim.keymap.set("n", "<leader>tP", require("util.profile").toggle_profile, { desc
 
 -- Telescope
 vim.keymap.set("n", "<leader>pp", function()
-	vim.cmd([[packadd telescope.nvim]])
 	require("telescope.builtin").find_files(require("telescope.themes").get_dropdown({}))
 end, { desc = "Find files in workspace" })
 
 vim.keymap.set("n", "<leader>pg", function()
-	vim.cmd([[packadd telescope.nvim]])
 	require("telescope.builtin").grep_string({})
 end, { desc = "Grep via telescope" })
 
 vim.keymap.set("n", "<leader>pb", function()
-	vim.cmd([[packadd telescope.nvim]])
 	require("telescope.builtin").buffers(require("telescope.themes").get_dropdown({}))
 end, { desc = "Find buffers" })
 
 vim.keymap.set("n", "<leader>pk", function()
-	vim.cmd([[packadd telescope.nvim]])
 	require("telescope.builtin").keymaps({})
 end, { desc = "Find normal mode keymap" })
 
 vim.keymap.set("n", "<leader>pt", function()
-	vim.cmd([[packadd telescope.nvim]])
 	require("telescope.builtin").lsp_dynamic_workspace_symbols({})
 end, { desc = "Find LSP workspace symbol" })
 
 vim.keymap.set("n", "<leader>ph", function()
-	vim.cmd([[packadd telescope.nvim]])
 	require("telescope.builtin").lsp_references({
 		initial_mode = "normal",
 	})
 end, { desc = "Find LSP References to selected symbol" })
 
 vim.keymap.set("n", "<leader>pi", function()
-	vim.cmd([[packadd telescope.nvim]])
 	require("telescope.builtin").lsp_implementations({
 		initial_mode = "normal",
 	})
@@ -117,7 +110,6 @@ end, { desc = "Find LSP implementations for the selected symbol" })
 -- Spectre
 
 vim.keymap.set({ "n", "v" }, "<leader>ps", function()
-	vim.cmd([[packadd nvim-spectre]])
 	require("spectre").open_visual({ select_word = true })
 end, { desc = "Workspace Find/Replace" })
 
@@ -200,7 +192,6 @@ vim.keymap.set("n", "<F2>", "<cmd>Lspsaga rename<CR>", { silent = true, noremap 
 
 -- vim.keymap.set("n", "gd", "<cmd>Lspsaga preview_definition<CR>", { silent = true })
 vim.keymap.set("n", "gd", function()
-	vim.cmd([[packadd telescope.nvim]])
 	require("telescope.builtin").lsp_definitions({})
 end, { silent = true, desc = "Go to definition of the token under cursor." })
 vim.keymap.set(

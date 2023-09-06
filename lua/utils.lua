@@ -1,0 +1,13 @@
+--
+-- vim.api.nvim_create_user_command("Farleft", function(ctx)
+--
+--   for _, w in pairs(vim.fn.getwininfo()) do
+--     print(w.winrow, w.wincol)
+--
+--   end
+--
+-- end, {
+--   nargs = '*',
+--   complete= 'file'
+--
+-- })

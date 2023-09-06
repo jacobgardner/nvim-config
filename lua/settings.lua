@@ -7,6 +7,7 @@ vim.g.default_gui_font = {"FiraCode Nerd Font", "FiraCode NF", "FuraCode NF"}
 vim.g.mapleader = " "
 vim.g.completeopt = "menu,menuone,noselect"
 opt.mouse = "a"
+opt.splitkeep = 'screen'
 
 opt.title = true
 opt.clipboard = "unnamedplus"

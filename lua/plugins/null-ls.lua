@@ -8,9 +8,9 @@ local b = null_ls.builtins
 
 local sources = {
 
-	-- Typescript stuff
+	-- -- Typescript stuff
 	b.formatting.prettier,
-	b.diagnostics.tsc,
+	-- b.diagnostics.tsc,
 
 	-- Lua
 	b.formatting.stylua,
