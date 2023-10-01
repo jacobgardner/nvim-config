@@ -88,11 +88,11 @@ local languages = {
 	eslint = {},
 	pyright = {},
 	spectral = {},
-	tsserver = {
-		capabilities = {
-			documentFormattingProvider = false,
-		},
-	},
+	-- tsserver = {
+	-- 	capabilities = {
+	-- 		documentFormattingProvider = false,
+	-- 	},
+	-- },
 	lua_ls = {
 		capabilities = {
 			documentFormattingProvider = false,
