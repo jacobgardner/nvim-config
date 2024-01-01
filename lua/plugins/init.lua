@@ -393,4 +393,30 @@ bootstrap({
 			require("plugins.nvim-dap-vscode-js")
 		end,
 	},
+
+  {
+    "nvim-neorg/neorg",
+    build = ":Neorg sync-parsers",
+    -- tag = "*",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("neorg").setup {
+        load = {
+          ["core.defaults"] = {}, -- Loads default behaviour
+          -- ["core.concealer"] = {}, -- Adds pretty icons to your documents
+          -- ["core.ui.calendar"] = {}, -- Adds pretty icons to your documents
+          -- ["core.summary"] = {}, -- Adds pretty icons to your documents
+          -- ["core.presenter"] = {}, -- Adds pretty icons to your documents
+          -- ["core.completion"] = {}, -- Adds pretty icons to your documents
+          ["core.dirman"] = { -- Manages Neorg workspaces
+            config = {
+              workspaces = {
+                notes = "~/notes",
+              },
+            },
+          },
+        },
+      }
+    end,
+  },
 })

@@ -2,7 +2,14 @@ local opt = vim.opt
 
 -- Used by util.font-size
 vim.g.default_font_size = 12
-vim.g.default_gui_font = {"FiraCode Nerd Font", "FiraCode NF", "FuraCode NF"}
+
+if vim.fn.has("win32") then
+    vim.g.default_gui_font = "FiraCode_Nerd_Font"
+else
+    -- vim.g.default_gui_font = {"FiraCode_Nerd_Font", "FiraCode_NF", "FuraCode_NF"}
+    vim.g.default_gui_font = "FiraCode_Nerd_Font"
+end
+
 
 vim.g.mapleader = " "
 vim.g.completeopt = "menu,menuone,noselect"
