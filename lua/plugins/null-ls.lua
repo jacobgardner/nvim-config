@@ -7,6 +7,13 @@ end
 local b = null_ls.builtins
 
 local sources = {
+  -- groovy/Jenkinsfile
+  b.diagnostics.npm_groovy_lint,
+  b.formatting.npm_groovy_lint,
+
+  -- Bazel Buildifier
+  b.diagnostics.buildifier,
+  b.formatting.buildifier,
 
 	-- -- Typescript stuff
 	b.formatting.prettier,

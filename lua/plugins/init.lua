@@ -28,6 +28,10 @@ bootstrap({
 		end,
 	},
 
+	-- Jenkinsfile
+
+	{ "ckipp01/nvim-jenkinsfile-linter", dependencies = { "nvim-lua/plenary.nvim" } },
+
 	{
 		"williamboman/mason.nvim",
 		config = function()
@@ -77,11 +81,11 @@ bootstrap({
 
 	{
 		"nvim-telescope/telescope-fzf-native.nvim",
-    dependencies = {"nvim-telescope/telescope.nvim"},
+		dependencies = { "nvim-telescope/telescope.nvim" },
 		build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
-    config = function()
-      require('telescope').load_extension('fzf')
-    end
+		config = function()
+			require("telescope").load_extension("fzf")
+		end,
 	},
 
 	{
@@ -271,10 +275,10 @@ bootstrap({
 		config = function()
 			require("typescript-tools").setup({
 				settings = {
-					tsserver_plugins = {
-						"@styled/typescript-styled-plugin",
-						-- { name = "@styled/typescript-styled-plugin", tags = { "styled", "css" } },
-					},
+					-- tsserver_plugins = {
+					-- 	"@styled/typescript-styled-plugin",
+					-- 	-- { name = "@styled/typescript-styled-plugin", tags = { "styled", "css" } },
+					-- },
 				},
 			})
 		end,
