@@ -1,22 +1,19 @@
 if vim.g.vscode then
+else
+	require("settings")
 
-else 
+	require("util.script-path")
 
-    require("settings")
+	local fs = require("util.font-size")
+	fs.reset_font_size()
 
-    require("util.script-path")
+	require("plugins.init")
 
-    local fs = require("util.font-size")
-    fs.reset_font_size()
+	require("keymaps")
 
-    require("plugins.init")
+	require("autocmds")
+	require("folding")
+	require("utils")
 
-    require("keymaps")
-
-    require("autocmds")
-    require("folding")
-    require("utils")
-
-    vim.opt.cmdheight = 1
-
+	vim.opt.cmdheight = 1
 end

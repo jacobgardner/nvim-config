@@ -8,6 +8,9 @@ local b = null_ls.builtins
 
 local sources = {
 
+  -- TOML
+  b.formatting.taplo,
+
 	-- -- Typescript stuff
 	b.formatting.prettier,
 	-- b.diagnostics.tsc,
