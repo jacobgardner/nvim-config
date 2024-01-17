@@ -3,11 +3,7 @@ local M = {}
 local update_font_size = function(font_size)
 	M.current_font_size = font_size
 
-  -- Has neovide load fonts from back to front so that it emulates font fallbacks.
-  -- Probably pretty inefficient, but comma-based fallbacks in guifont were not working for me
-  for i = #vim.g.default_gui_font, 1, -1 do
-    vim.opt.guifont = vim.g.default_gui_font[i] .. ':h' .. M.current_font_size
-  end
+  	vim.o.guifont = vim.g.default_gui_font .. ':h' .. M.current_font_size
 end
 
 local get_final_count = function(count)

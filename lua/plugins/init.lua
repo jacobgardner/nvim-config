@@ -149,7 +149,7 @@ bootstrap({
 
 	-- LSP Integration for non-lsp tools (linters, formatters, etc.)
 	{
-		"jose-elias-alvarez/null-ls.nvim",
+		"nvimtools/none-ls.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
 			require("plugins.null-ls")
@@ -294,6 +294,12 @@ bootstrap({
 	},
 
 	-- Additional rust functionality via rust-analyzer
+
+	-- {
+	-- 	"mrcjkb/rustaceanvim",
+	-- 	version = "^3", -- Recommended
+	-- 	ft = { "rust", "toml" },
+	-- },
 	{
 		"simrat39/rust-tools.nvim",
 		dependencies = { "neovim/nvim-lspconfig" },
@@ -395,6 +401,32 @@ bootstrap({
 		dependencies = { "mfussenegger/nvim-dap" },
 		config = function()
 			require("plugins.nvim-dap-vscode-js")
+		end,
+	},
+
+	{
+		"nvim-neorg/neorg",
+		build = ":Neorg sync-parsers",
+		-- tag = "*",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		config = function()
+			require("neorg").setup({
+				load = {
+					["core.defaults"] = {}, -- Loads default behaviour
+					-- ["core.concealer"] = {}, -- Adds pretty icons to your documents
+					-- ["core.ui.calendar"] = {}, -- Adds pretty icons to your documents
+					-- ["core.summary"] = {}, -- Adds pretty icons to your documents
+					-- ["core.presenter"] = {}, -- Adds pretty icons to your documents
+					-- ["core.completion"] = {}, -- Adds pretty icons to your documents
+					["core.dirman"] = { -- Manages Neorg workspaces
+						config = {
+							workspaces = {
+								notes = "~/notes",
+							},
+						},
+					},
+				},
+			})
 		end,
 	},
 })

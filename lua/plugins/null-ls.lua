@@ -15,6 +15,9 @@ local sources = {
   b.diagnostics.buildifier,
   b.formatting.buildifier,
 
+  -- TOML
+  b.formatting.taplo,
+
 	-- -- Typescript stuff
 	b.formatting.prettier,
 	-- b.diagnostics.tsc,
