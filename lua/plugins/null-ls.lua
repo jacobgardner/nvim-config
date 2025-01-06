@@ -16,7 +16,15 @@ local sources = {
 	b.formatting.buildifier,
 
 	-- -- Typescript stuff
-	b.formatting.prettier,
+	b.formatting.prettier.with({
+    -- cwd = function (params)
+    --   if string.find(params.root, "webuis-react", 0, true) then
+    --     return "/home/jacob/projects/webuis-react"
+    --   else
+    --     return nil
+    --   end
+    -- end
+  }),
 	-- b.diagnostics.tsc,
 
 	-- Lua

@@ -108,21 +108,21 @@ bootstrap({
 	},
 
 	-- Github CoPilot
-	{
-		"zbirenbaum/copilot.lua",
-		cmd = { "Copilot" },
-		event = "InsertEnter",
-		config = function()
-			require("plugins.copilot")
-		end,
-	},
-
-	{
-		"zbirenbaum/copilot-cmp",
-		config = function()
-			require("copilot_cmp").setup()
-		end,
-	},
+	-- {
+	-- 	"zbirenbaum/copilot.lua",
+	-- 	cmd = { "Copilot" },
+	-- 	event = "InsertEnter",
+	-- 	config = function()
+	-- 		require("plugins.copilot")
+	-- 	end,
+	-- },
+	--
+	-- {
+	-- 	"zbirenbaum/copilot-cmp",
+	-- 	config = function()
+	-- 		require("copilot_cmp").setup()
+	-- 	end,
+	-- },
 
 	{
 		"CopilotC-Nvim/CopilotChat.nvim",
@@ -137,64 +137,64 @@ bootstrap({
 		-- See Commands section for default commands if you want to lazy load on them
 	},
 
-	{
-		"yetone/avante.nvim",
-		event = "VeryLazy",
-		lazy = false,
-		version = false, -- set this if you want to always pull the latest change
-		opts = {
-			provider = "copilot",
-			auto_suggestions_provider = "copilot",
-			copilot = {
-				model = "claude-3.5-sonnet",
-				max_tokens = 64000,
-			},
-			-- provider = "deepseek",
-			-- deepseek = {
-			--   endpoint = "https://api.deepseek.com",
-			--   model = "deepseek-coder",
-			--   temperature = 0,
-			--   max_tokens = 4096,
-			-- },
-		},
-		-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-		build = "make",
-		-- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
-		dependencies = {
-			"stevearc/dressing.nvim",
-			"nvim-lua/plenary.nvim",
-			"MunifTanjim/nui.nvim",
-			--- The below dependencies are optional,
-			"hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
-			"nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-			"zbirenbaum/copilot.lua", -- for providers='copilot'
-			{
-				-- support for image pasting
-				"HakonHarnes/img-clip.nvim",
-				event = "VeryLazy",
-				opts = {
-					-- recommended settings
-					default = {
-						embed_image_as_base64 = false,
-						prompt_for_file_name = false,
-						drag_and_drop = {
-							insert_mode = true,
-						},
-						-- required for Windows users
-						use_absolute_path = true,
-					},
-				},
-			},
-			{
-				-- Make sure to set this up properly if you have lazy=true
-				"MeanderingProgrammer/render-markdown.nvim",
-				opts = {
-					file_types = { "markdown", "Avante" },
-				},
-				ft = { "markdown", "Avante" },
-			},
-		},
-	},
+	-- {
+	-- 	"yetone/avante.nvim",
+	-- 	event = "VeryLazy",
+	-- 	lazy = false,
+	-- 	version = false, -- set this if you want to always pull the latest change
+	-- 	opts = {
+	-- 		provider = "copilot",
+	-- 		auto_suggestions_provider = "copilot",
+	-- 		copilot = {
+	-- 			model = "claude-3.5-sonnet",
+	-- 			max_tokens = 64000,
+	-- 		},
+	-- 		-- provider = "deepseek",
+	-- 		-- deepseek = {
+	-- 		--   endpoint = "https://api.deepseek.com",
+	-- 		--   model = "deepseek-coder",
+	-- 		--   temperature = 0,
+	-- 		--   max_tokens = 4096,
+	-- 		-- },
+	-- 	},
+	-- 	-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+	-- 	build = "make",
+	-- 	-- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+	-- 	dependencies = {
+	-- 		"stevearc/dressing.nvim",
+	-- 		"nvim-lua/plenary.nvim",
+	-- 		"MunifTanjim/nui.nvim",
+	-- 		--- The below dependencies are optional,
+	-- 		"hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
+	-- 		"nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+	-- 		"zbirenbaum/copilot.lua", -- for providers='copilot'
+	-- 		{
+	-- 			-- support for image pasting
+	-- 			"HakonHarnes/img-clip.nvim",
+	-- 			event = "VeryLazy",
+	-- 			opts = {
+	-- 				-- recommended settings
+	-- 				default = {
+	-- 					embed_image_as_base64 = false,
+	-- 					prompt_for_file_name = false,
+	-- 					drag_and_drop = {
+	-- 						insert_mode = true,
+	-- 					},
+	-- 					-- required for Windows users
+	-- 					use_absolute_path = true,
+	-- 				},
+	-- 			},
+	-- 		},
+	-- 		{
+	-- 			-- Make sure to set this up properly if you have lazy=true
+	-- 			"MeanderingProgrammer/render-markdown.nvim",
+	-- 			opts = {
+	-- 				file_types = { "markdown", "Avante" },
+	-- 			},
+	-- 			ft = { "markdown", "Avante" },
+	-- 		},
+	-- 	},
+	-- },
 	{
 		"olimorris/codecompanion.nvim",
 		dependencies = {
@@ -392,6 +392,29 @@ bootstrap({
 		"pmizio/typescript-tools.nvim",
 		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
 		opts = {},
+    config = function() 
+      require('typescript-tools').setup({
+        code_lens = "all",
+        expose_as_code_action = "all",
+        on_attach = function (client) 
+          client.server_capabilities.documentFormattingProvider = false
+          client.server_capabilities.documentRangeFormattingProvider = false
+        end,
+        root_dir = function (fname)
+
+          local util = require "lspconfig.util"
+
+          local root_dir = util.root_pattern ".git"(fname)
+            or util.root_pattern("tsconfig.json", "package.json", "jsconfig.json", ".git")(fname)
+
+          return root_dir
+
+        end,
+        tsserver_plugins = {
+          "@styled/typescript-styled-plugin"
+        }
+      })
+    end
 		-- config = function()
 		-- 	require("typescript-tools").setup({
 		-- 		settings = {
@@ -510,6 +533,17 @@ bootstrap({
 			require("plugins.nvim-dap-ui")
 		end,
 	},
+  
+  {
+    "NeogitOrg/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim",         -- required
+      "sindrets/diffview.nvim",        -- optional - Diff integration
+      -- Only one of these is needed.
+      "nvim-telescope/telescope.nvim", -- optional
+    },
+    config = true
+  },
 
 	-- {
 	-- 	"microsoft/vscode-js-debug",
@@ -638,4 +672,20 @@ bootstrap({
 
 	-- NWM graphical magic
 	{ "altermo/nwm", branch = "x11" },
+
+  {
+    "ray-x/go.nvim",
+    dependencies = {  -- optional packages
+      "ray-x/guihua.lua",
+      "neovim/nvim-lspconfig",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = function()
+      require("go").setup()
+    end,
+    event = {"CmdlineEnter"},
+    ft = {"go", 'gomod'},
+    build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
+  },
+
 })
