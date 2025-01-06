@@ -7,16 +7,13 @@ end
 local b = null_ls.builtins
 
 local sources = {
-  -- groovy/Jenkinsfile
-  b.diagnostics.npm_groovy_lint,
-  b.formatting.npm_groovy_lint,
+	-- groovy/Jenkinsfile
+	b.diagnostics.npm_groovy_lint,
+	b.formatting.npm_groovy_lint,
 
-  -- Bazel Buildifier
-  b.diagnostics.buildifier,
-  b.formatting.buildifier,
-
-  -- TOML
-  b.formatting.taplo,
+	-- Bazel Buildifier
+	b.diagnostics.buildifier,
+	b.formatting.buildifier,
 
 	-- -- Typescript stuff
 	b.formatting.prettier,
@@ -27,23 +24,22 @@ local sources = {
 
 	-- Shell
 	b.formatting.shfmt,
-	b.diagnostics.shellcheck.with({ diagnostics_format = "#{m} [#{c}]" }),
 
-	-- Python
-	b.formatting.autopep8,
+	-- Terraform
+	b.formatting.terraform_fmt,
 
-  -- Terraform
-  b.formatting.terraform_fmt
+  -- Python
+  b.formatting.black
 }
 
 null_ls.setup({
-	debug = false,
+	debug = true,
 	sources = sources,
 	-- on_attach = function(client, bufnr)
 	-- 	vim.keymap.set({ "n", "i" }, "<C-i>", function()
 	-- 		local util = require("vim.lsp.util")
 	-- 		local params = util.make_formatting_params({})
 	-- 		client.request("textDocument/formatting", params, nil, bufnr)
-  -- end,
+	-- end,
 	-- 	end, { buffer = bufnr })
 })

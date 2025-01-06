@@ -2,6 +2,13 @@ local bootstrap = require("plugins.bootstrap")
 
 bootstrap({
 
+	-- Neorg dependency
+	{
+		"vhyrro/luarocks.nvim",
+		priority = 1000,
+		config = true,
+	},
+
 	-- Color Scheme
 	{
 		"Mofiqul/dracula.nvim",
@@ -90,7 +97,7 @@ bootstrap({
 
 	{
 		"nvim-telescope/telescope.nvim",
-		version = "0.1.2",
+		version = "0.1.8",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		cmd = { "Telescope" },
 		config = function()
@@ -116,6 +123,119 @@ bootstrap({
 			require("copilot_cmp").setup()
 		end,
 	},
+
+	{
+		"CopilotC-Nvim/CopilotChat.nvim",
+		dependencies = {
+			{ "zbirenbaum/copilot.lua" },
+			{ "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
+		},
+		build = "make tiktoken", -- Only on MacOS or Linux
+		opts = {
+			-- See Configuration section for options
+		},
+		-- See Commands section for default commands if you want to lazy load on them
+	},
+
+	{
+		"yetone/avante.nvim",
+		event = "VeryLazy",
+		lazy = false,
+		version = false, -- set this if you want to always pull the latest change
+		opts = {
+			provider = "copilot",
+			auto_suggestions_provider = "copilot",
+			copilot = {
+				model = "claude-3.5-sonnet",
+				max_tokens = 64000,
+			},
+			-- provider = "deepseek",
+			-- deepseek = {
+			--   endpoint = "https://api.deepseek.com",
+			--   model = "deepseek-coder",
+			--   temperature = 0,
+			--   max_tokens = 4096,
+			-- },
+		},
+		-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+		build = "make",
+		-- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+		dependencies = {
+			"stevearc/dressing.nvim",
+			"nvim-lua/plenary.nvim",
+			"MunifTanjim/nui.nvim",
+			--- The below dependencies are optional,
+			"hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
+			"nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+			"zbirenbaum/copilot.lua", -- for providers='copilot'
+			{
+				-- support for image pasting
+				"HakonHarnes/img-clip.nvim",
+				event = "VeryLazy",
+				opts = {
+					-- recommended settings
+					default = {
+						embed_image_as_base64 = false,
+						prompt_for_file_name = false,
+						drag_and_drop = {
+							insert_mode = true,
+						},
+						-- required for Windows users
+						use_absolute_path = true,
+					},
+				},
+			},
+			{
+				-- Make sure to set this up properly if you have lazy=true
+				"MeanderingProgrammer/render-markdown.nvim",
+				opts = {
+					file_types = { "markdown", "Avante" },
+				},
+				ft = { "markdown", "Avante" },
+			},
+		},
+	},
+	{
+		"olimorris/codecompanion.nvim",
+		dependencies = {
+			{ "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
+			{ "MeanderingProgrammer/render-markdown.nvim", ft = { "markdown", "codecompanion" } },
+			"nvim-treesitter/nvim-treesitter",
+		},
+		config = function()
+			require("codecompanion").setup({
+				adapters = {
+					deepseek = function()
+						return require("codecompanion.adapters").extend("openai_compatible", {
+							env = {
+								url = "https://api.deepseek.com",
+								api_key = "sk-0519684efd3345cbae0e6728294b7abf",
+								chat_url = "/chat/completions",
+							},
+						})
+					end,
+				},
+				strategies = {
+					chat = {
+						adapter = "deepseek",
+					},
+					inline = {
+						adapter = "copilot",
+					},
+				},
+			})
+		end,
+	},
+
+	-- Better Code Folding
+	{
+		"kevinhwang91/nvim-ufo",
+		dependencies = { "kevinhwang91/promise-async" },
+		config = false,
+	},
+
+	-- Various Improvements
+	{ "echasnovski/mini.nvim", version = false },
 
 	{
 		"nvim-treesitter/nvim-treesitter",
@@ -170,7 +290,7 @@ bootstrap({
 	{
 		"nvim-neo-tree/neo-tree.nvim",
 		version = "v3.x",
-		lazy = false,
+		-- event = "VimEnter",
 		priority = 900,
 		-- cmd = { "Neotree" },
 		dependencies = {
@@ -272,16 +392,16 @@ bootstrap({
 		"pmizio/typescript-tools.nvim",
 		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
 		opts = {},
-		config = function()
-			require("typescript-tools").setup({
-				settings = {
-					-- tsserver_plugins = {
-					-- 	"@styled/typescript-styled-plugin",
-					-- 	-- { name = "@styled/typescript-styled-plugin", tags = { "styled", "css" } },
-					-- },
-				},
-			})
-		end,
+		-- config = function()
+		-- 	require("typescript-tools").setup({
+		-- 		settings = {
+		-- 			-- tsserver_plugins = {
+		-- 			-- 	"@styled/typescript-styled-plugin",
+		-- 			-- 	-- { name = "@styled/typescript-styled-plugin", tags = { "styled", "css" } },
+		-- 			-- },
+		-- 		},
+		-- 	})
+		-- end,
 	},
 
 	{
@@ -295,19 +415,20 @@ bootstrap({
 
 	-- Additional rust functionality via rust-analyzer
 
-	-- {
-	-- 	"mrcjkb/rustaceanvim",
-	-- 	version = "^3", -- Recommended
-	-- 	ft = { "rust", "toml" },
-	-- },
 	{
-		"simrat39/rust-tools.nvim",
-		dependencies = { "neovim/nvim-lspconfig" },
-		ft = { "rust", "toml" },
-		config = function()
-			require("plugins.rust-tools")
-		end,
+		"mrcjkb/rustaceanvim",
+		version = "^5", -- Recommended
+		lazy = false,
+		-- ft = { "rust", "toml" },
 	},
+	-- {
+	-- 	"simrat39/rust-tools.nvim",
+	-- 	dependencies = { "neovim/nvim-lspconfig" },
+	-- 	ft = { "rust", "toml" },
+	-- 	config = function()
+	-- 		require("plugins.rust-tools")
+	-- 	end,
+	-- },
 
 	-- LSP progress notification in bottom right
 	{
@@ -384,31 +505,41 @@ bootstrap({
 
 	{
 		"rcarriga/nvim-dap-ui",
-		dependencies = { "mfussenegger/nvim-dap" },
+		dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
 		config = function()
 			require("plugins.nvim-dap-ui")
 		end,
 	},
 
-	{
-		"microsoft/vscode-js-debug",
-		lazy = true,
-		build = "npm install --legacy-peer-deps && npm run compile",
-	},
+	-- {
+	-- 	"microsoft/vscode-js-debug",
+	-- 	lazy = true,
+	-- 	build = "git reset --hard main && npm install && npm run compile",
+	-- },
 
-	{
-		"mxsdev/nvim-dap-vscode-js",
-		dependencies = { "mfussenegger/nvim-dap" },
-		config = function()
-			require("plugins.nvim-dap-vscode-js")
-		end,
-	},
+	-- {
+	-- 	{
+	-- 		"codota/tabnine-nvim",
+	-- 		build = "./dl_binaries.sh",
+	-- 		config = function()
+	-- 			require("plugins.tabnine")
+	-- 		end,
+	-- 	},
+	-- },
+
+	-- {
+	-- 	"mxsdev/nvim-dap-vscode-js",
+	-- 	dependencies = { "mfussenegger/nvim-dap" },
+	-- 	config = function()
+	-- 		require("plugins.nvim-dap-vscode-js")
+	-- 	end,
+	-- },
 
 	{
 		"nvim-neorg/neorg",
-		build = ":Neorg sync-parsers",
+		-- build = ":Neorg sync-parsers",
 		-- tag = "*",
-		dependencies = { "nvim-lua/plenary.nvim" },
+		dependencies = { "nvim-lua/plenary.nvim", "luarocks.nvim" },
 		config = function()
 			require("neorg").setup({
 				load = {
@@ -429,4 +560,82 @@ bootstrap({
 			})
 		end,
 	},
+
+	-- Distant
+	{
+		"chipsenkbeil/distant.nvim",
+		branch = "v0.3",
+		config = function()
+			require("distant"):setup()
+		end,
+	},
+
+	-- Jinja2
+	{
+		"Glench/Vim-Jinja2-Syntax",
+	},
+	-- Rainbow delimiters
+	{
+		url = "https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git",
+	},
+
+	-- Indent guides
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		main = "ibl",
+		opts = {},
+		config = function()
+			local highlight = {
+				"RainbowRed",
+				"RainbowYellow",
+				"RainbowBlue",
+				"RainbowOrange",
+				"RainbowGreen",
+				"RainbowViolet",
+				"RainbowCyan",
+			}
+			local hooks = require("ibl.hooks")
+			-- create the highlight groups in the highlight setup hook, so they are reset
+			-- every time the colorscheme changes
+			hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+				vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
+				vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
+				vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
+				vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
+				vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
+				vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
+				vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+			end)
+
+			vim.g.rainbow_delimiters = { highlight = highlight }
+			require("ibl").setup({ scope = { highlight = highlight } })
+
+			hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
+		end,
+	},
+
+	-- Sessions!
+	{
+		"coffebar/neovim-project",
+		opts = {
+			projects = { -- define project roots
+				"~/projects/*",
+				"~/.config/nvim",
+			},
+		},
+		init = function()
+			-- enable saving the state of plugins in the session
+			vim.opt.sessionoptions:append("globals") -- save global variables that start with an uppercase letter and contain at least one lowercase letter.
+		end,
+		dependencies = {
+			{ "nvim-lua/plenary.nvim" },
+			{ "nvim-telescope/telescope.nvim", tag = "0.1.8" },
+			{ "Shatur/neovim-session-manager" },
+		},
+		lazy = false,
+		priority = 100,
+	},
+
+	-- NWM graphical magic
+	{ "altermo/nwm", branch = "x11" },
 })

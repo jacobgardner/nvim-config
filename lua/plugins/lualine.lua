@@ -12,6 +12,7 @@ lualine.setup({
 				path = 1,
 				shorting_target = 40,
 			},
+      'codecompanion'
 		},
 	},
 	inactive_sections = {
