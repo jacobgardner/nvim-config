@@ -47,3 +47,10 @@ telescope.setup({
 		buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
 	},
 })
+
+-- local colors = require("dracula").colors()
+--
+-- vim.api.nvim_set_hl(0, 'TelescopePromptTitle', { fg = "#ffffff", bg = "#00FF00" })
+-- -- vim.api.nvim_set_hl(0, 'Comment', { fg = "#111111", bold = true })
+-- -- vim.api.nvim_set_hl(0, 'Error', { fg = "#ffffff", undercurl = true })
+-- -- vim.api.nvim_set_hl(0, 'Cursor', { reverse = true })

@@ -68,14 +68,14 @@ bootstrap({
 		end,
 	},
 
-	-- Leader Cheatsheet
-	{
-		"folke/which-key.nvim",
-		keys = { "<leader>" },
-		config = function()
-			require("plugins.which-key")
-		end,
-	},
+	-- -- Leader Cheatsheet
+	-- {
+	-- 	"folke/which-key.nvim",
+	-- 	keys = { "<leader>" },
+	-- 	config = function()
+	-- 		require("plugins.which-key")
+	-- 	end,
+	-- },
 
 	-- Colorize ANSI escape sequences from pasting from console
 	{
@@ -107,6 +107,10 @@ bootstrap({
 		end,
 	},
 
+	{
+		"github/copilot.vim",
+	},
+
 	-- Github CoPilot
 	-- {
 	-- 	"zbirenbaum/copilot.lua",
@@ -123,19 +127,6 @@ bootstrap({
 	-- 		require("copilot_cmp").setup()
 	-- 	end,
 	-- },
-
-	{
-		"CopilotC-Nvim/CopilotChat.nvim",
-		dependencies = {
-			{ "zbirenbaum/copilot.lua" },
-			{ "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
-		},
-		build = "make tiktoken", -- Only on MacOS or Linux
-		opts = {
-			-- See Configuration section for options
-		},
-		-- See Commands section for default commands if you want to lazy load on them
-	},
 
 	-- {
 	-- 	"yetone/avante.nvim",
@@ -204,6 +195,11 @@ bootstrap({
 		},
 		config = function()
 			require("codecompanion").setup({
+				display = {
+					action_palette = {
+						provider = "telescope",
+					},
+				},
 				adapters = {
 					deepseek = function()
 						return require("codecompanion.adapters").extend("openai_compatible", {
@@ -392,29 +388,27 @@ bootstrap({
 		"pmizio/typescript-tools.nvim",
 		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
 		opts = {},
-    config = function() 
-      require('typescript-tools').setup({
-        code_lens = "all",
-        expose_as_code_action = "all",
-        on_attach = function (client) 
-          client.server_capabilities.documentFormattingProvider = false
-          client.server_capabilities.documentRangeFormattingProvider = false
-        end,
-        root_dir = function (fname)
+		config = function()
+			require("typescript-tools").setup({
+				code_lens = "all",
+				expose_as_code_action = "all",
+				on_attach = function(client)
+					client.server_capabilities.documentFormattingProvider = false
+					client.server_capabilities.documentRangeFormattingProvider = false
+				end,
+				root_dir = function(fname)
+					local util = require("lspconfig.util")
 
-          local util = require "lspconfig.util"
+					local root_dir = util.root_pattern(".git")(fname)
+						or util.root_pattern("tsconfig.json", "package.json", "jsconfig.json", ".git")(fname)
 
-          local root_dir = util.root_pattern ".git"(fname)
-            or util.root_pattern("tsconfig.json", "package.json", "jsconfig.json", ".git")(fname)
-
-          return root_dir
-
-        end,
-        tsserver_plugins = {
-          "@styled/typescript-styled-plugin"
-        }
-      })
-    end
+					return root_dir
+				end,
+				tsserver_plugins = {
+					"@styled/typescript-styled-plugin",
+				},
+			})
+		end,
 		-- config = function()
 		-- 	require("typescript-tools").setup({
 		-- 		settings = {
@@ -533,17 +527,17 @@ bootstrap({
 			require("plugins.nvim-dap-ui")
 		end,
 	},
-  
-  {
-    "NeogitOrg/neogit",
-    dependencies = {
-      "nvim-lua/plenary.nvim",         -- required
-      "sindrets/diffview.nvim",        -- optional - Diff integration
-      -- Only one of these is needed.
-      "nvim-telescope/telescope.nvim", -- optional
-    },
-    config = true
-  },
+
+	{
+		"NeogitOrg/neogit",
+		dependencies = {
+			"nvim-lua/plenary.nvim", -- required
+			"sindrets/diffview.nvim", -- optional - Diff integration
+			-- Only one of these is needed.
+			"nvim-telescope/telescope.nvim", -- optional
+		},
+		config = true,
+	},
 
 	-- {
 	-- 	"microsoft/vscode-js-debug",
@@ -663,7 +657,7 @@ bootstrap({
 		end,
 		dependencies = {
 			{ "nvim-lua/plenary.nvim" },
-			{ "nvim-telescope/telescope.nvim", tag = "0.1.8" },
+			{ "nvim-telescope/telescope.nvim" },
 			{ "Shatur/neovim-session-manager" },
 		},
 		lazy = false,
@@ -673,19 +667,36 @@ bootstrap({
 	-- NWM graphical magic
 	{ "altermo/nwm", branch = "x11" },
 
-  {
-    "ray-x/go.nvim",
-    dependencies = {  -- optional packages
-      "ray-x/guihua.lua",
-      "neovim/nvim-lspconfig",
-      "nvim-treesitter/nvim-treesitter",
-    },
-    config = function()
-      require("go").setup()
-    end,
-    event = {"CmdlineEnter"},
-    ft = {"go", 'gomod'},
-    build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
-  },
+	{
+		"ray-x/go.nvim",
+		dependencies = { -- optional packages
+			"ray-x/guihua.lua",
+			"neovim/nvim-lspconfig",
+			"nvim-treesitter/nvim-treesitter",
+		},
+		config = function()
+			require("go").setup()
+		end,
+		event = { "CmdlineEnter" },
+		ft = { "go", "gomod" },
+		build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
+	},
 
+	{
+		"stevearc/dressing.nvim",
+		opts = {},
+	},
+
+	{
+		"mrjones2014/legendary.nvim",
+		-- since legendary.nvim handles all your keymaps/commands,
+		-- its recommended to load legendary.nvim before other plugins
+		priority = 10000,
+		lazy = false,
+		-- sqlite is only needed if you want to use frecency sorting
+		dependencies = { "kkharji/sqlite.lua", { "nvim-telescope/telescope.nvim" } },
+		config = function()
+			require("plugins.legendary")
+		end,
+	},
 })

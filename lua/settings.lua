@@ -2,6 +2,7 @@ local opt = vim.opt
 
 -- Used by util.font-size
 vim.g.default_font_size = 12
+vim.g.copilot_no_tab_map = true
 
 if vim.fn.has("win32") then
 	vim.g.default_gui_font = "FiraCode_Nerd_Font" -- "FiraCode_NFM"
