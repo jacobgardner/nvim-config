@@ -80,7 +80,7 @@ bootstrap({
 	-- Colorize ANSI escape sequences from pasting from console
 	{
 		"m00qek/baleia.nvim",
-		version = "v1.3.0",
+		version = "v1.4.0",
 		config = function()
 			require("baleia").setup()
 		end,
@@ -89,7 +89,7 @@ bootstrap({
 	{
 		"nvim-telescope/telescope-fzf-native.nvim",
 		dependencies = { "nvim-telescope/telescope.nvim" },
-		build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+		build = "make",
 		config = function()
 			require("telescope").load_extension("fzf")
 		end,
@@ -450,8 +450,6 @@ bootstrap({
 	-- LSP progress notification in bottom right
 	{
 		"j-hui/fidget.nvim",
-		version = "legacy",
-		tag = "legacy",
 		config = function()
 			require("fidget").setup()
 		end,
@@ -478,7 +476,7 @@ bootstrap({
 	-- Integrated Terminal
 	{
 		"akinsho/toggleterm.nvim",
-		version = "v2.*",
+		version = "*",
 		cmd = { "ToggleTerm", "ToggleTermToggleAll" },
 		keys = { "<C-\\>" },
 		config = function()

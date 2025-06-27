@@ -37,7 +37,10 @@ local sources = {
 	b.formatting.terraform_fmt,
 
   -- Python
-  b.formatting.black
+  b.formatting.black,
+
+  -- Bazel
+  b.diagnostics.buildifier
 }
 
 null_ls.setup({

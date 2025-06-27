@@ -10,7 +10,7 @@ require("legendary").setup({
 				vim.lsp.buf.format({ async = true })
 			end,
 			description = "Format Buffer",
-			mode = {},
+			mode = { 'n', 'i' },
 		},
 		{
 			"<C-J>",
@@ -21,8 +21,8 @@ require("legendary").setup({
 		},
 		{
 			"<C-n>",
-			"<cmd>Neotree position=right toggle<CR>",
-			description = "Toggle & Focus Neotree",
+			"<cmd>Neotree position=right focus<CR>",
+			description = "Focus Neotree",
 		},
 		{
 			"<leader>tp",
