@@ -3,7 +3,7 @@ local M = {}
 -- SEE `lspconfig.lua` for language configuration now
 
 
-require("lspconfig").gopls.setup({})
+-- require("lspconfig").gopls.setup({})
 -- require("lspconfig").rust_analyzer.setup({})
 -- require("lspconfig").eslint.setup({})
 -- require("lspconfig").tsserver.setup({})

@@ -1,6 +1,6 @@
 -- Setup nvim-cmp.
 local cmp = require("cmp")
-local lspconfig = require("lspconfig")
+-- local lspconfig = require("lspconfig")
 local luasnip = require("luasnip")
 
 vim.cmd([[highlight link CmpItemAbbrMatchFuzzy CmpItemAbbrMatch]])
@@ -117,9 +117,12 @@ local lsp_keybinds = require("util.lsp_keybinds")
 for key, value in pairs(languages) do
 	local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-	lspconfig[key].setup({
+  vim.lsp.config[key] = {
 		on_attach = lsp_keybinds.on_attach(value),
 		capabilities = capabilities,
 		settings = value.settings,
-	})
+	}
+
+  vim.lsp.enable(key)
+
 end
