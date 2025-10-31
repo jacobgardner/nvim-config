@@ -13,6 +13,7 @@ end
 
 vim.g.mapleader = " "
 vim.g.completeopt = "menu,menuone,noselect"
+vim.g.autoformat = true
 opt.mouse = "a"
 opt.splitkeep = "screen"
 

@@ -405,7 +405,7 @@ bootstrap({
 					return root_dir
 				end,
 				tsserver_plugins = {
-					"@styled/typescript-styled-plugin",
+					-- "@styled/typescript-styled-plugin",
 				},
 			})
 		end,

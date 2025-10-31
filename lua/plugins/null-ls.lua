@@ -1,5 +1,7 @@
 local present, null_ls = pcall(require, "null-ls")
 
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+
 if not present then
 	return
 end
@@ -17,14 +19,14 @@ local sources = {
 
 	-- -- Typescript stuff
 	b.formatting.prettier.with({
-    -- cwd = function (params)
-    --   if string.find(params.root, "webuis-react", 0, true) then
-    --     return "/home/jacob/projects/webuis-react"
-    --   else
-    --     return nil
-    --   end
-    -- end
-  }),
+		-- cwd = function (params)
+		--   if string.find(params.root, "webuis-react", 0, true) then
+		--     return "/home/jacob/projects/webuis-react"
+		--   else
+		--     return nil
+		--   end
+		-- end
+	}),
 	-- b.diagnostics.tsc,
 
 	-- Lua
@@ -36,16 +38,33 @@ local sources = {
 	-- Terraform
 	b.formatting.terraform_fmt,
 
-  -- Python
-  b.formatting.black,
+	-- Python
+	b.formatting.black,
 
-  -- Bazel
-  b.diagnostics.buildifier
+	-- Bazel
+	b.diagnostics.buildifier,
 }
 
 null_ls.setup({
 	debug = true,
 	sources = sources,
+	on_attach = function(client, bufnr)
+		if client.supports_method("textDocument/formatting") then
+			vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+			vim.api.nvim_create_autocmd("BufWritePre", {
+				group = augroup,
+				buffer = bufnr,
+				callback = function()
+					if vim.g.autoformat == false then
+						return
+					end
+
+					vim.lsp.buf.format()
+				end,
+			})
+		end
+	end,
+
 	-- on_attach = function(client, bufnr)
 	-- 	vim.keymap.set({ "n", "i" }, "<C-i>", function()
 	-- 		local util = require("vim.lsp.util")
