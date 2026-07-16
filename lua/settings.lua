@@ -2,7 +2,6 @@ local opt = vim.opt
 
 -- Used by util.font-size
 vim.g.default_font_size = 12
-vim.g.copilot_no_tab_map = true
 
 if vim.fn.has("win32") == 1 then
 	vim.g.default_gui_font = "FiraCode_Nerd_Font" -- "FiraCode_NFM"
@@ -12,8 +11,8 @@ else
 end
 
 vim.g.mapleader = " "
-vim.g.completeopt = "menu,menuone,noselect"
 vim.g.autoformat = true
+opt.completeopt = "menu,menuone,noselect"
 opt.mouse = "a"
 opt.splitkeep = "screen"
 
@@ -47,8 +46,6 @@ vim.g.neo_tree_remove_legacy_commands = 1
 
 opt.ignorecase = true
 opt.smartcase = true
-
-vim.g.symbols_outline = {}
 
 vim.filetype.add({
 	extension = {

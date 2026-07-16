@@ -15,18 +15,19 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("PackChanged", {
 	group = plugin_autocmds,
 	callback = function(ev)
-		if ev.data.spec.name == "telescope-fzf-native.nvim" then
+		local name, kind = ev.data.spec.name, ev.data.kind
+		if name == "telescope-fzf-native.nvim" and (kind == "install" or kind == "update") then
 			local result = vim.system({ "make" }, { cwd = ev.data.path }):wait()
 			if result.code ~= 0 then
 				vim.notify("Failed to build telescope-fzf-native.nvim:\n" .. result.stderr, vim.log.levels.ERROR)
 			end
+		elseif name == "nvim-treesitter" and kind == "update" then
+			require("nvim-treesitter").update():wait(300000)
 		end
 	end,
 })
 
 vim.pack.add({
-	"https://github.com/kkharji/sqlite.lua",
-	"https://github.com/mrjones2014/legendary.nvim",
 	"https://github.com/mofiqul/dracula.nvim",
 	{
 		src = "https://github.com/nvim-treesitter/nvim-treesitter",
@@ -55,7 +56,6 @@ vim.pack.add({
 	"https://github.com/MagicDuck/grug-far.nvim",
 	"https://github.com/nvimdev/lspsaga.nvim",
 	"https://github.com/hrsh7th/nvim-cmp",
-	"https://github.com/hrsh7th/cmp-nvim-lsp-signature-help",
 	"https://github.com/hrsh7th/cmp-nvim-lsp",
 	"https://github.com/hrsh7th/cmp-nvim-lua",
 	"https://github.com/hrsh7th/cmp-buffer",
@@ -64,7 +64,6 @@ vim.pack.add({
 	"https://github.com/L3MON4D3/LuaSnip",
 	"https://github.com/akinsho/bufferline.nvim",
 	"https://github.com/nvim-lualine/lualine.nvim",
-	"https://github.com/echasnovski/mini.nvim",
 	"https://github.com/ray-x/lsp_signature.nvim",
 	"https://github.com/j-hui/fidget.nvim",
 	"https://github.com/coffebar/neovim-project",
@@ -75,7 +74,7 @@ vim.pack.add({
 })
 
 require("plugins.neo-tree")
-require("plugins.legendary")
+require("plugin-keymaps")
 require("plugins.null-ls")
 require("plugins.treesitter")
 
@@ -96,6 +95,13 @@ local function typescript_root(bufnr)
 	local filename = vim.api.nvim_buf_get_name(bufnr)
 	return vim.fs.root(filename, { "tsconfig.json", "jsconfig.json", "package.json", ".git" })
 		or vim.fs.dirname(filename)
+end
+
+if vim.fn.executable("pnpm") == 1 then
+	local tsserver_provider = require("typescript-tools.tsserver_provider")
+	tsserver_provider.make_npm_root_params = function()
+		return "pnpm", { "root", "-g" }
+	end
 end
 
 require("typescript-tools").setup({
@@ -144,11 +150,10 @@ require("neovim-project").setup({
 })
 
 require("plugins.gitsigns")
-require("telescope").load_extension("fzf")
 require("plugins.telescope")
+require("telescope").load_extension("fzf")
 require("plugins.mason")
 require("plugins.mason-lspconfig")
-require("plugins.blamer")
 require("plugins.incline")
 require("window-picker").setup({
 	autoselect_one = true,
@@ -166,7 +171,6 @@ require("plugins.dracula")
 require("plugins.lspsaga")
 require("plugins.luasnip")
 require("plugins.cmp")
-require("plugins.lspconfig")
 require("plugins.bufferline")
 require("plugins.lualine")
 require("plugins.lsp_signature")

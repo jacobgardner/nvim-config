@@ -13,7 +13,6 @@ else
 
 	require("autocmds")
 	require("folding")
-	require("utils")
 
 	vim.opt.cmdheight = 1
 end

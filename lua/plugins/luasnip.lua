@@ -1,7 +1,10 @@
 local luasnip = require("luasnip")
 
 luasnip.config.set_config({
-	history = true,
-	updateevents = "TextChanged,TextChangedI",
+	keep_roots = true,
+	link_roots = true,
+	link_children = true,
+	exit_roots = false,
+	update_events = { "TextChanged", "TextChangedI" },
 })
 require("luasnip.loaders.from_vscode").load()
