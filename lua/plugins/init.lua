@@ -107,6 +107,7 @@ end
 require("typescript-tools").setup({
 	settings = {
 		code_lens = "all",
+		disable_member_code_lens = true,
 		expose_as_code_action = "all",
 	},
 	capabilities = require("cmp_nvim_lsp").default_capabilities(),
@@ -120,13 +121,24 @@ require("typescript-tools").setup({
 	end,
 })
 
+local ts_commands = require("typescript-tools.internal_commands")
+local ts_constants = require("typescript-tools.protocol.constants")
+
+ts_commands[ts_constants.InternalCommands.RequestReferences] = function()
+	require("telescope.builtin").lsp_references({ initial_mode = "normal" })
+end
+
+ts_commands[ts_constants.InternalCommands.RequestImplementations] = function()
+	require("telescope.builtin").lsp_implementations({ initial_mode = "normal" })
+end
+
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = plugin_autocmds,
 	callback = function(args)
 		local client = vim.lsp.get_client_by_id(args.data.client_id)
 		if client and client.name == "typescript-tools" then
 			pcall(vim.api.nvim_del_augroup_by_name, "TypescriptToolsCodeLensGroup")
-			vim.lsp.codelens.enable(true, { bufnr = args.buf })
+			require("typescript-codelens").attach(args.buf, client.id)
 		end
 	end,
 })

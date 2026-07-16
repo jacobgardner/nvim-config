@@ -8,6 +8,8 @@ end
 setHighlight("TreesitterContext", { bg = colors.comment })
 setHighlight("FidgetTitle", { fg = colors.comment })
 setHighlight("FidgetTask", { bg = colors.orange })
+setHighlight("LspCodeLens", { fg = colors.comment, italic = true })
+setHighlight("LspCodeLensSeparator", { fg = colors.selection })
 
 setHighlight("DiffAdd", { bg = "#2E493F" })
 setHighlight("DiffDelete", { bg = "#48303B" })
