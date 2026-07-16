@@ -1,3 +1,6 @@
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 -- Remove deprecated commands from Neotree
 vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 vim.g.neo_tree_remove_legacy_commands = 1
@@ -49,6 +52,7 @@ nt.setup({
 		position = "right",
 	},
 	filesystem = {
+		hijack_netrw_behavior = "open_default",
 		async_directory_scan = "auto",
 		follow_current_file = {
 			enabled = true,

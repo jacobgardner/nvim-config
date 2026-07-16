@@ -50,15 +50,13 @@ cmp.setup({
 		-- { name = "nvim_lsp_signature_help" },
 		{ name = "buffer" },
 		{ name = "nvim_lua" },
-		{ name = "crates" },
+		{ name = "path" },
 	}),
 })
 
 -- Set configuration for specific filetype.
 cmp.setup.filetype("gitcommit", {
 	sources = cmp.config.sources({
-		{ name = "cmp_git" }, -- You can specify the `cmp_git` source if you were installed it.
-	}, {
 		{ name = "buffer" },
 	}),
 })
@@ -82,12 +80,13 @@ cmp.setup.cmdline(":", {
 })
 
 local languages = {
-	-- Rust tools does this for us, see rust-tools.lua
-	-- rust_analyzer = {},
+	rust_analyzer = {},
 	wgsl_analyzer = {},
 	-- eslint = {},
 	pyright = {},
-	spectral = {},
+	spectral = {
+		filetypes = { "yaml", "json" },
+	},
 	-- tsserver = {
 	-- 	capabilities = {
 	-- 		documentFormattingProvider = false,
@@ -107,7 +106,7 @@ local languages = {
 	},
 }
 
-if vim.fn.has("win32") then
+if vim.fn.has("win32") == 1 then
 	-- spectral-language-server currently doesn't work on windows
 	languages.spectral = nil
 end
@@ -117,12 +116,12 @@ local lsp_keybinds = require("util.lsp_keybinds")
 for key, value in pairs(languages) do
 	local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-  vim.lsp.config[key] = {
+	vim.lsp.config[key] = {
 		on_attach = lsp_keybinds.on_attach(value),
 		capabilities = capabilities,
+		filetypes = value.filetypes,
 		settings = value.settings,
 	}
 
-  vim.lsp.enable(key)
-
+	vim.lsp.enable(key)
 end

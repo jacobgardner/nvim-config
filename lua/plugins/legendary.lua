@@ -1,6 +1,3 @@
-
-local debugger = require("util.debugger")
-
 require("legendary").setup({
 	keymaps = {
 		{ "<C-p>", "<cmd>Legendary<CR>", description = "Legendary (Command Palette)" },
@@ -10,24 +7,12 @@ require("legendary").setup({
 				vim.lsp.buf.format({ async = true })
 			end,
 			description = "Format Buffer",
-			mode = { 'n', 'i' },
-		},
-		{
-			"<C-J>",
-			'copilot#Accept("\\<CR>")',
-			mode = { "i" },
-			opts = { expr = true, replace_keycodes = false },
-			description = "Accept Copilot Suggestion",
+			mode = { "n" },
 		},
 		{
 			"<C-n>",
 			"<cmd>Neotree position=right focus<CR>",
 			description = "Focus Neotree",
-		},
-		{
-			"<leader>tp",
-			"<cmd>TroubleToggle<CR>",
-			description = "Toggle Problems Panel",
 		},
 		{
 			"<leader>rl",
@@ -124,21 +109,9 @@ require("legendary").setup({
 		},
 		{
 			"<leader>ps",
-			function()
-				require("spectre").open_visual({ select_word = true })
-			end,
+			"<CMD>GrugFar<CR>",
 			description = "Workspace Find/Replace",
 			mode = { "n", "v" },
-		},
-		{
-			"<leader>tt",
-			"<CMD>ToggleTerm direction=horizontal<CR>",
-			description = "Toggle horizontal terminal",
-		},
-		{
-			"<leader>?",
-			"<CMD>Cheatsheet<CR>",
-			description = "Open Cheatsheet",
 		},
 		{
 			"<A-j>",
@@ -147,7 +120,7 @@ require("legendary").setup({
 		},
 		{
 			"<A-k>",
-      "<CMD>move .-2<CR>==",
+			"<CMD>move .-2<CR>==",
 			description = "Move current line up",
 		},
 		{
@@ -242,9 +215,7 @@ require("legendary").setup({
 		},
 		{
 			"gd",
-			function()
-				require("telescope.builtin").lsp_definitions({})
-			end,
+			vim.lsp.buf.definition,
 			description = "Go to definition of the token under cursor.",
 		},
 		{
@@ -263,108 +234,9 @@ require("legendary").setup({
 			description = "Jump to previous diagnostic",
 		},
 		{
-			"<leader>ts",
-			"<cmd>SymbolsOutline<CR>",
-			description = "Toggle symbols outline",
-		},
-		{
 			"<leader>tf",
-			"<cmd>NvimTreeToggle<CR>",
+			"<cmd>Neotree toggle position=right<CR>",
 			description = "Toggle file explorer",
-		},
-		{
-			"<F5>",
-			function()
-				debugger.with_setup(function()
-					require("dap").continue()
-				end)
-			end,
-			description = "[Debugging] Continue",
-		},
-		{
-			"<F10>",
-			function()
-				debugger.with_setup(function()
-					require("dap").step_over()
-				end)
-			end,
-			description = "[Debugging] Step Over (Next)",
-		},
-		{
-			"<F11>",
-			function()
-				debugger.with_setup(function()
-					require("dap").step_into()
-				end)
-			end,
-			description = "[Debugging] Step Into",
-		},
-		{
-			"<F12>",
-			function()
-				debugger.with_setup(function()
-					require("dap").step_out()
-				end)
-			end,
-			description = "[Debugging] Step Out Of",
-		},
-		{
-			"<leader>b",
-			function()
-				require("dap").toggle_breakpoint()
-			end,
-			description = "[Debugging] Toggle Breakpoint",
-		},
-		{
-			"<leader>dB",
-			function()
-				require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
-			end,
-			description = "[Debugging] Toggle Breakpoint w/ Condition",
-		},
-		{
-			"<leader>dl",
-			function()
-				require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
-			end,
-			description = "[Debugging] Add log breakpoint",
-		},
-		{
-			"<leader>dr",
-			function()
-				debugger.with_setup(function()
-					require("dap").repl.open()
-				end)
-			end,
-			description = "[Debugging] Open repl",
-		},
-		{
-			"<leader>dL",
-			function()
-				debugger.with_setup(function()
-					require("dap").run_last()
-				end)
-			end,
-			description = "[Debugging] Run last",
-		},
-		{
-			"<leader>dt",
-			function()
-				require("dapui").toggle()
-			end,
-			description = "[Debugging] Toggle Debugging UI",
-		},
-		-- { "<leader>tc", { n = function() end }, description = "Colorize ASCII Escape Sequences in Buffer" },
-	},
-
-	funcs = {
-		{
-			function()
-				local baleia = require("baleia").setup()
-
-				baleia.once(0)
-			end,
-			description = "Colorize ASCII Escape Sequences in Buffer",
 		},
 	},
 
@@ -452,9 +324,7 @@ require("legendary").setup({
 	-- load extensions
 	extensions = {
 		-- automatically load keymaps from lazy.nvim's `keys` option
-		lazy_nvim = true,
-		-- load keymaps and commands from nvim-tree.lua
-		nvim_tree = true,
+		lazy_nvim = false,
 		-- load commands from smart-splits.nvim
 		-- and create keymaps, see :h legendary-extensions-smart-splits.nvim
 		-- smart_splits = {

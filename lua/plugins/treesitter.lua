@@ -1,11 +1,6 @@
-require("nvim-treesitter.configs").setup({
-	autotag = {
-		enable = true,
-	},
-	ensure_installed = { "rust", "typescript", "javascript", "lua", "hcl", "python", "markdown", "markdown_inline" },
-	highlight = {
-		enable = true,
-	},
-})
+local treesitter = require("nvim-treesitter")
 
+treesitter.setup()
+treesitter.install({ "rust", "typescript", "javascript", "lua", "hcl", "python", "markdown", "markdown_inline" })
 
+require("nvim-ts-autotag").setup()

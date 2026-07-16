@@ -1,2 +1,6 @@
 plugin/
 test.lua
+.npmrc
+.opencode/opencode-loop/
+.pnpm-debug.log
+.vscode/

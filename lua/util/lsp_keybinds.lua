@@ -6,13 +6,13 @@ local M = {}
 M.on_attach = function(settings)
 	return function(client, bufnr)
 		-- Enable completion triggered by <c-x><c-o>
-		vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+		vim.api.nvim_set_option_value("omnifunc", "v:lua.vim.lsp.omnifunc", { buf = bufnr })
 
-    if settings.capabilities ~= nil then
-      for key, value in pairs(settings.capabilities) do
-        client.server_capabilities[key] = value
-      end
-    end
+		if settings.capabilities ~= nil then
+			for key, value in pairs(settings.capabilities) do
+				client.server_capabilities[key] = value
+			end
+		end
 
 		-- Mappings.
 		-- See `:help vim.lsp.*` for documentation on any of the below functions

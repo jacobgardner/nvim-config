@@ -19,6 +19,7 @@ local sources = {
 
 	-- -- Typescript stuff
 	b.formatting.prettier.with({
+		prefer_local = "node_modules/.bin",
 		-- cwd = function (params)
 		--   if string.find(params.root, "webuis-react", 0, true) then
 		--     return "/home/jacob/projects/webuis-react"
@@ -41,15 +42,13 @@ local sources = {
 	-- Python
 	b.formatting.black,
 
-	-- Bazel
-	b.diagnostics.buildifier,
 }
 
 null_ls.setup({
-	debug = true,
+	debug = false,
 	sources = sources,
 	on_attach = function(client, bufnr)
-		if client.supports_method("textDocument/formatting") then
+		if client:supports_method("textDocument/formatting") then
 			vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
 			vim.api.nvim_create_autocmd("BufWritePre", {
 				group = augroup,
